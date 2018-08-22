@@ -1,7 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Babić
- * Date: 22.8.2018.
- * Time: 14.37
- */
+
+require __DIR__ . '/../vendor/autoload.php';
+
+try {
+
+    $app = require __DIR__ . '/../bootstrap/app.php';
+
+} catch (Exception $exception) {
+
+    \Kucasoft\ExceptionHandler::capture($exception);
+}
