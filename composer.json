@@ -1,0 +1,13 @@
+{
+    "name": "kucasoft/webulator",
+    "description": "Simple vendor based web app",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dejan-babic",
+            "email": "babicaja@gmail.com"
+        }
+    ],
+    "require": {}
+}
