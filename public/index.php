@@ -9,5 +9,5 @@ try {
 
 } catch (Exception $exception) {
 
-    \Kucasoft\ExceptionHandler::capture($exception);
+    \Webulator\ExceptionHandler::capture($exception);
 }

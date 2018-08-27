@@ -1,6 +1,6 @@
 <?php
 
-namespace Kucasoft\Contracts;
+namespace Webulator\Contracts;
 
 interface MiddlewareHandler
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Kucasoft\Middleware;
+namespace Webulator\Middleware;
 
-use Kucasoft\Contracts\Response;
+use Webulator\Contracts\Response;
 
 class BaseMiddleware
 {

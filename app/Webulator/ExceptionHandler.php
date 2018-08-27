@@ -1,6 +1,6 @@
 <?php
 
-namespace Kucasoft;
+namespace Webulator;
 
 class ExceptionHandler
 {

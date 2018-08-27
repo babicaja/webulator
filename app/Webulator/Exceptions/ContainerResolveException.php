@@ -1,6 +1,6 @@
 <?php
 
-namespace Kucasoft\Exceptions;
+namespace Webulator\Exceptions;
 
 use Throwable;
 

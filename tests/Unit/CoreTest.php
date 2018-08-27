@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Kucasoft\Application;
-use Kucasoft\Contracts\MiddlewareHandler;
-use Kucasoft\Contracts\Request;
-use Kucasoft\Contracts\RequestHandler;
-use Kucasoft\Contracts\Response;
+use Webulator\Application;
+use Webulator\Contracts\MiddlewareHandler;
+use Webulator\Contracts\Request;
+use Webulator\Contracts\RequestHandler;
+use Webulator\Contracts\Response;
 use Tests\Traits\MakesApp;
 
 class CoreTest extends BaseTest

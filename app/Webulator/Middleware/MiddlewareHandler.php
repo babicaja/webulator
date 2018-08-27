@@ -1,11 +1,11 @@
 <?php
 
-namespace Kucasoft\Middleware;
+namespace Webulator\Middleware;
 
-use Kucasoft\Contracts\MiddlewareHandler as WebulatorMiddlewareHandler;
-use Kucasoft\Contracts\Request;
-use Kucasoft\Contracts\RequestHandler;
-use Kucasoft\Contracts\Response;
+use Webulator\Contracts\MiddlewareHandler as WebulatorMiddlewareHandler;
+use Webulator\Contracts\Request;
+use Webulator\Contracts\RequestHandler;
+use Webulator\Contracts\Response;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 

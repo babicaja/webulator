@@ -6,17 +6,17 @@ define("__ROOT__", realpath(__DIR__.DIRECTORY_SEPARATOR."..").DIRECTORY_SEPARATO
 (new \Symfony\Component\Dotenv\Dotenv())->load(__ROOT__.".env");
 
 // Create the application.
-$app = new \Kucasoft\Application();
+$app = new \Webulator\Application();
 
 // Bind key components to application.
-$app->bind(\Kucasoft\Contracts\Request::class, DI\create(\Kucasoft\HTTP\Request::class)->constructor($_SERVER));
-$app->bind(\Kucasoft\Contracts\Response::class, DI\create(\Kucasoft\HTTP\Response::class));
-$app->bind(\Kucasoft\Contracts\RequestHandler::class, DI\autowire(\Kucasoft\HTTP\RequestHandler::class));
-$app->bind(\Kucasoft\Contracts\MiddlewareHandler::class, DI\autowire(\Kucasoft\Middleware\MiddlewareHandler::class));
+$app->bind(\Webulator\Contracts\Request::class, DI\create(\Webulator\HTTP\Request::class)->constructor($_SERVER));
+$app->bind(\Webulator\Contracts\Response::class, DI\create(\Webulator\HTTP\Response::class));
+$app->bind(\Webulator\Contracts\RequestHandler::class, DI\autowire(\Webulator\HTTP\RequestHandler::class));
+$app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator\Middleware\MiddlewareHandler::class));
 
 // Load middleware
 $app->pipe([
-    \Kucasoft\Middleware\Example::class,
+    \Webulator\Middleware\Example::class,
 ]);
 
 return $app;

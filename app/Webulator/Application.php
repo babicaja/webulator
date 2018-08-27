@@ -1,13 +1,13 @@
 <?php
 
-namespace Kucasoft;
+namespace Webulator;
 
 use DI\Container;
-use Kucasoft\Contracts\MiddlewareHandler;
-use Kucasoft\Contracts\Request;
-use Kucasoft\Contracts\RequestHandler;
-use Kucasoft\Contracts\Response;
-use Kucasoft\Exceptions\ContainerResolveException;
+use Webulator\Contracts\MiddlewareHandler;
+use Webulator\Contracts\Request;
+use Webulator\Contracts\RequestHandler;
+use Webulator\Contracts\Response;
+use Webulator\Exceptions\ContainerResolveException;
 use Psr\Container\ContainerInterface;
 
 class Application

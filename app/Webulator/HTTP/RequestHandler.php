@@ -1,9 +1,9 @@
 <?php
 
-namespace Kucasoft\HTTP;
+namespace Webulator\HTTP;
 
-use Kucasoft\Contracts\RequestHandler as WebulatorRequestHandler;
-use Kucasoft\Contracts\Response;
+use Webulator\Contracts\RequestHandler as WebulatorRequestHandler;
+use Webulator\Contracts\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

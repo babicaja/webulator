@@ -2,7 +2,7 @@
 
 namespace Tests\Traits;
 
-use Kucasoft\Application;
+use Webulator\Application;
 
 trait MakesApp
 {

@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Kucasoft\\": "app/Kucasoft"
+            "Webulator\\": "app/Webulator"
         }
     },
     "autoload-dev": {

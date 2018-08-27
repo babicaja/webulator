@@ -1,8 +1,8 @@
 <?php
 
-namespace Kucasoft\HTTP;
+namespace Webulator\HTTP;
 
-use Kucasoft\Contracts\Response as WebulatorResponse;
+use Webulator\Contracts\Response as WebulatorResponse;
 use Zend\Diactoros\Response as ZendResponse;
 
 class Response extends ZendResponse implements WebulatorResponse

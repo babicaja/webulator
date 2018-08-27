@@ -1,8 +1,8 @@
 <?php
 
-namespace Kucasoft\HTTP;
+namespace Webulator\HTTP;
 
-use Kucasoft\Contracts\Request as WebulatorRequest;
+use Webulator\Contracts\Request as WebulatorRequest;
 use Zend\Diactoros\ServerRequest;
 
 class Request extends ServerRequest implements WebulatorRequest
