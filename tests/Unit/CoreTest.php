@@ -3,13 +3,16 @@
 namespace Tests\Unit;
 
 use Kucasoft\Application;
+use Tests\Traits\MakesApp;
 
 class CoreTest extends BaseTest
 {
+    use MakesApp;
+
     /** @test */
     public function it_can_bootstrap_the_application()
     {
-        $this->assertInstanceOf(Application::class, $this->app(), "The application could not be bootstrapped.");
+        $this->assertInstanceOf(Application::class, $this->bootedApp(), "The application could not be bootstrapped.");
     }
 
     /** @test */
