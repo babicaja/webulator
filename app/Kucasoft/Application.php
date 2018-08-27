@@ -3,6 +3,7 @@
 namespace Kucasoft;
 
 use DI\Container;
+use Kucasoft\Contracts\MiddlewareHandler;
 use Kucasoft\Contracts\Request;
 use Kucasoft\Contracts\RequestHandler;
 use Kucasoft\Contracts\Response;
@@ -32,9 +33,17 @@ class Application
     private $requestHandler;
 
     /**
+     * @var array
+     */
+    private $middleware;
+
+    /**
+     * @var MiddlewareHandler
+     */
+    private $middlewareHandler;
+
+    /**
      * Application constructor.
-     *
-     * @throws \Exception
      */
     public function __construct()
     {
@@ -52,33 +61,6 @@ class Application
         $this->middleware();
         $this->handle();
         $this->respond();
-    }
-
-    /**
-     * Resolve building blocks out of the container.
-     *
-     * @throws \Exception
-     */
-    private function wire()
-    {
-        $this->request = $this->resolve(Request::class);
-        $this->response = $this->resolve(Response::class);
-        $this->requestHandler = $this->resolve(RequestHandler::class);
-    }
-
-    private function middleware()
-    {
-    }
-
-    private function handle()
-    {
-        $this->response = $this->requestHandler->handle($this->request);
-    }
-
-    private function respond()
-    {
-        echo $this->response->getBody();
-//        echo "Hello";
     }
 
     /**
@@ -112,6 +94,16 @@ class Application
     }
 
     /**
+     * Assign middleware classes used by MiddlewareManager.
+     *
+     * @param array $middleware
+     */
+    public function pipe(array $middleware = [])
+    {
+        $this->middleware = $middleware;
+    }
+
+    /**
      * Creates a DI\Container.
      *
      * @return Container
@@ -119,5 +111,42 @@ class Application
     private function container()
     {
         return new Container();
+    }
+
+    /**
+     * Resolve building blocks out of the container.
+     *
+     * @throws \Exception
+     */
+    private function wire()
+    {
+        $this->request = $this->resolve(Request::class);
+        $this->response = $this->resolve(Response::class);
+        $this->middlewareHandler = $this->resolve(MiddlewareHandler::class);
+        $this->requestHandler = $this->resolve(RequestHandler::class);
+    }
+
+    /**
+     * Run through all middleware
+     */
+    private function middleware()
+    {
+        $this->response = $this->middlewareHandler->pass($this->middleware);
+    }
+
+    /**
+     * Handle request.
+     */
+    private function handle()
+    {
+        $this->response = $this->requestHandler->handle($this->request);
+    }
+
+    /**
+     * Respond with a emitter.
+     */
+    private function respond()
+    {
+        echo $this->response->getBody();
     }
 }

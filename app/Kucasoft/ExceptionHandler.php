@@ -45,7 +45,7 @@ class ExceptionHandler
         header('Content-Type: text/html');
         header("HTTP/1.1 503 Service Unavailable");
 
-        if (getenv("DEBUG")) {
+        if (getenv("DEBUG") == "true") {
 
             var_dump(self::$exception);
 

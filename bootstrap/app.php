@@ -12,5 +12,11 @@ $app = new \Kucasoft\Application();
 $app->bind(\Kucasoft\Contracts\Request::class, DI\create(\Kucasoft\HTTP\Request::class)->constructor($_SERVER));
 $app->bind(\Kucasoft\Contracts\Response::class, DI\create(\Kucasoft\HTTP\Response::class));
 $app->bind(\Kucasoft\Contracts\RequestHandler::class, DI\autowire(\Kucasoft\HTTP\RequestHandler::class));
+$app->bind(\Kucasoft\Contracts\MiddlewareHandler::class, DI\autowire(\Kucasoft\Middleware\MiddlewareHandler::class));
+
+// Load middleware
+$app->pipe([
+    \Kucasoft\Middleware\Example::class,
+]);
 
 return $app;
