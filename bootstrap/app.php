@@ -5,10 +5,12 @@ define("__ROOT__", realpath(__DIR__.DIRECTORY_SEPARATOR."..").DIRECTORY_SEPARATO
 // Load the environment variables.
 (new \Symfony\Component\Dotenv\Dotenv())->load(__ROOT__.".env");
 
-// Prepare DI Container.
-$container = new DI\Container();
+// Create the application.
+$app = new \Kucasoft\Application();
 
-// Create the app.
-$app = new \Kucasoft\Application($container);
+// Bind key components to application.
+$app->bind(\Kucasoft\Contracts\Request::class, DI\create(\Kucasoft\HTTP\Request::class)->constructor($_SERVER));
+$app->bind(\Kucasoft\Contracts\Response::class, DI\create(\Kucasoft\HTTP\Response::class));
+$app->bind(\Kucasoft\Contracts\RequestHandler::class, DI\autowire(\Kucasoft\HTTP\RequestHandler::class));
 
 return $app;

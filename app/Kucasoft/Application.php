@@ -3,6 +3,9 @@
 namespace Kucasoft;
 
 use DI\Container;
+use Kucasoft\Contracts\Request;
+use Kucasoft\Contracts\RequestHandler;
+use Kucasoft\Contracts\Response;
 use Kucasoft\Exceptions\ContainerResolveException;
 use Psr\Container\ContainerInterface;
 
@@ -14,13 +17,68 @@ class Application
     private $container;
 
     /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var Response
+     */
+    private $response;
+
+    /**
+     * @var RequestHandler
+     */
+    private $requestHandler;
+
+    /**
      * Application constructor.
      *
-     * @param ContainerInterface|null $container
+     * @throws \Exception
      */
-    public function __construct(ContainerInterface $container = null)
+    public function __construct()
     {
-        $this->container = ($container) ? : $this->createDefaultContainer();
+        $this->container = $this->container();
+    }
+
+    /**
+     * Run the application.
+     *
+     * @throws \Exception
+     */
+    public function run()
+    {
+        $this->wire();
+        $this->middleware();
+        $this->handle();
+        $this->respond();
+    }
+
+    /**
+     * Resolve building blocks out of the container.
+     *
+     * @throws \Exception
+     */
+    private function wire()
+    {
+        $this->request = $this->resolve(Request::class);
+        $this->response = $this->resolve(Response::class);
+        $this->requestHandler = $this->resolve(RequestHandler::class);
+    }
+
+    private function middleware()
+    {
+    }
+
+    private function handle()
+    {
+        $this->response = $this->requestHandler->handle($this->request);
+    }
+
+    private function respond()
+    {
+        echo $this->response->getBody();
+//        echo "Hello";
     }
 
     /**
@@ -49,16 +107,16 @@ class Application
 
         } catch (\Exception $e) {
 
-            throw new ContainerResolveException("${identifier} could not be resolved out of the container",$e->getCode(),$e);
+            throw new ContainerResolveException("${identifier} could not be resolved out of the container", $e->getCode(), $e);
         }
     }
 
     /**
-     * Creates a DI\Container as a default option if no other Container is passed in the constructor.
+     * Creates a DI\Container.
      *
      * @return Container
      */
-    private function createDefaultContainer()
+    private function container()
     {
         return new Container();
     }
