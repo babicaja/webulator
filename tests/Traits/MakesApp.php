@@ -6,7 +6,7 @@ use Kucasoft\Application;
 
 trait MakesApp
 {
-    private $instance = null;
+    private static $instance = null;
 
     /**
      * Returns booted app, which has all the building blocks wired.
@@ -15,13 +15,14 @@ trait MakesApp
      */
     public function bootedApp()
     {
-        if (!$this->instance) {
+        if (!self::$instance) {
 
-            return $this->instance = require __DIR__ . "/../../bootstrap/app.php";
+            self::$instance = require __DIR__ . "/../../bootstrap/app.php";
+            return self::$instance;
 
         } else {
 
-            return $this->instance;
+            return self::$instance;
         }
     }
 
