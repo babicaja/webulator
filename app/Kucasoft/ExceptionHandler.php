@@ -18,7 +18,7 @@ class ExceptionHandler
     {
         self::$exception = $exception;
 
-        'XMLHttpRequest' !== ($_SERVER['X-Requested-With'] ?? '') ? self::respondWithJson() : self::respondWithHtml();
+        'XMLHttpRequest' == ($_SERVER['X-Requested-With'] ?? '') ? self::respondWithJson() : self::respondWithHtml();
     }
 
     /**
@@ -44,7 +44,6 @@ class ExceptionHandler
     {
         header('Content-Type: text/html');
         header("HTTP/1.1 503 Service Unavailable");
-
 
         if (getenv("DEBUG")) {
 
