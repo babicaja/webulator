@@ -2,13 +2,12 @@
 
 namespace Webulator;
 
-use DI\Container;
+use Psr\Container\ContainerInterface;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
 use Webulator\Exceptions\ContainerResolveException;
-use Psr\Container\ContainerInterface;
 
 class Application
 {
@@ -44,10 +43,12 @@ class Application
 
     /**
      * Application constructor.
+     *
+     * @param ContainerInterface $container
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->container = $this->container();
+        $this->container = $container;
     }
 
     /**
@@ -101,16 +102,6 @@ class Application
     public function pipe(array $middleware = [])
     {
         $this->middleware = $middleware;
-    }
-
-    /**
-     * Creates a DI\Container.
-     *
-     * @return Container
-     */
-    private function container()
-    {
-        return new Container();
     }
 
     /**

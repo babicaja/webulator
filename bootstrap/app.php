@@ -5,8 +5,11 @@ define("__ROOT__", realpath(__DIR__.DIRECTORY_SEPARATOR."..").DIRECTORY_SEPARATO
 // Load the environment variables.
 (new \Symfony\Component\Dotenv\Dotenv())->load(__ROOT__.".env");
 
+// Prepare DI container.
+$container = new \DI\Container();
+
 // Create the application.
-$app = new \Webulator\Application();
+$app = new \Webulator\Application($container);
 
 // Bind key components to application.
 $app->bind(\Webulator\Contracts\Request::class, DI\create(\Webulator\HTTP\Request::class)->constructor($_SERVER));

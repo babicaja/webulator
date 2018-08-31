@@ -7,7 +7,6 @@ use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
-use Tests\Traits\MakesApp;
 
 class CoreTest extends BaseTest
 {
@@ -38,9 +37,9 @@ class CoreTest extends BaseTest
     public function it_can_resolve_all_the_app_components($component)
     {
         $app = $this->bootedApp();
-        $response = $app->resolve($component);
+        $resolved = $app->resolve($component);
 
-        $this->assertInstanceOf($component, $response, "The application does not have a ${component} component.");
+        $this->assertInstanceOf($component, $resolved, "The application does not have a ${component} component.");
     }
 
     /**
