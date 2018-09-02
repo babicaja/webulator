@@ -2,32 +2,37 @@
 
 namespace Webulator\HTTP;
 
+use Webulator\Contracts\Dispatcher;
+use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler as WebulatorRequestHandler;
 use Webulator\Contracts\Response;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Webulator\Contracts\RouteCollection;
 
 class RequestHandler implements WebulatorRequestHandler
 {
     /**
-     * @var Response
-     */
-    private $response;
-
-    public function __construct(Response $response)
-    {
-        $this->response = $response;
-    }
-
-    /**
-     * Handle the request and return a response.
+     * Handle request object with optional route data.
      *
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
+     * @param Request $request
+     * @param mixed|null $routes
+     * @param Dispatcher $dispatcher
+     * @return Response
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    public function handle(Request $request, RouteCollection $routes, Dispatcher $dispatcher): Response
     {
-        $this->response->getBody()->write("Handled by request handler.");
-        return $this->response;
+        $data = $dispatcher->dispatch($request, $routes);
+
+        switch ($data[0]) {
+            case 0: // Not found.
+                break;
+            case 1: // Found.
+                break;
+            case 3: // Method not allowed.
+                break;
+            default: // Same as not found.
+                break;
+        }
+
+        return new \Webulator\HTTP\Response();
     }
 }

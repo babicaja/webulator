@@ -3,10 +3,12 @@
 namespace Webulator;
 
 use Psr\Container\ContainerInterface;
+use Webulator\Contracts\Dispatcher;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Contracts\RouteCollection;
 use Webulator\Exceptions\ContainerResolveException;
 
 class Application
@@ -42,11 +44,21 @@ class Application
     private $middlewareHandler;
 
     /**
-     * Application constructor.
+     * @var RouteCollection
+     */
+    private $routeCollection;
+
+    /**
+     * @var Dispatcher
+     */
+    private $dispatcher;
+
+    /**
+     * Set tha application's container manager.
      *
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function container(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -58,7 +70,6 @@ class Application
      */
     public function run()
     {
-        $this->wire();
         $this->middleware();
         $this->handle();
         $this->respond();
@@ -105,20 +116,33 @@ class Application
     }
 
     /**
+     * Provides route collection object.
+     *
+     * @return RouteCollection
+     */
+    public function routes()
+    {
+        return $this->routeCollection;
+//        return $this->resolve(RouteCollection::class);
+    }
+
+    /**
      * Resolve building blocks out of the container.
      *
      * @throws \Exception
      */
-    private function wire()
+    public function wire()
     {
         $this->request = $this->resolve(Request::class);
         $this->response = $this->resolve(Response::class);
         $this->middlewareHandler = $this->resolve(MiddlewareHandler::class);
         $this->requestHandler = $this->resolve(RequestHandler::class);
+        $this->routeCollection = $this->resolve(RouteCollection::class);
+        $this->dispatcher = $this->resolve(Dispatcher::class);
     }
 
     /**
-     * Run through all middleware
+     * Run through all middleware.
      */
     private function middleware()
     {
@@ -130,7 +154,7 @@ class Application
      */
     private function handle()
     {
-        $this->response = $this->requestHandler->handle($this->request);
+        $this->response = $this->requestHandler->handle($this->request, $this->routeCollection, $this->dispatcher);
     }
 
     /**
