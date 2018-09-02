@@ -46,14 +46,12 @@ class CoreTest extends BaseTest
     public function it_can_set_routes()
     {
         $app = $this->bootedApp();
-        $app->routes(["SomeRouteDefinition"]);
+        $app->routes()->get("test", "TestController@test");
 
-        // A bit of reflection because we want to check a private property.
-        $reflection = new \ReflectionClass(\Webulator\Application::class);
-        $middlewareProperty = $reflection->getProperty("routes");
-        $middlewareProperty->setAccessible(true);
+        $collection = $app->routes()->retrieve();
 
-        $this->assertEquals(["SomeRouteDefinition"], $middlewareProperty->getValue($app));
+        $this->assertArrayHasKey("test", $collection[0]["GET"]);
+
     }
 
     /**
