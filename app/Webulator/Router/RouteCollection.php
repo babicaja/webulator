@@ -16,7 +16,7 @@ class RouteCollection implements WebulatorRouteCollection
 
     public function __construct()
     {
-        $collector = new RouteCollector(new Std(),new GroupCountBased());
+        $collector = new RouteCollector(new Std(), new GroupCountBased());
         $this->collector = $collector;
     }
 

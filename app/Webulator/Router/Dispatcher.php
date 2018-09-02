@@ -9,16 +9,27 @@ use Webulator\Contracts\RouteCollection;
 
 class Dispatcher implements WebulatorDispatcher
 {
+    /**
+     * @var GroupCountBased
+     */
+    private $dispatcher;
+
+    /**
+     * Dispatcher constructor.
+     *
+     * @param RouteCollection $routes
+     */
+    public function __construct(RouteCollection $routes)
+    {
+        $this->dispatcher = new GroupCountBased($routes->retrieve());
+    }
 
     /**
      * @param Request $request
-     * @param RouteCollection $routes
      * @return mixed
      */
-    public function dispatch(Request $request, RouteCollection $routes)
+    public function dispatch(Request $request)
     {
-        $dispatcher = new GroupCountBased($routes->retrieve());
-
-        return $dispatcher->dispatch($request->getMethod(), $request->getUri()->getPath());
+        return $this->dispatcher->dispatch($request->getMethod(), $request->getUri()->getPath());
     }
 }

@@ -2,17 +2,31 @@
 
 namespace Webulator\Middleware;
 
+use Webulator\Contracts\Middleware;
+use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
 
-class BaseMiddleware
+abstract class BaseMiddleware implements Middleware
 {
+    /**
+     * @var Request
+     */
+    protected $request;
+
     /**
      * @var Response
      */
     protected $response;
 
-    public function __construct(Response $response)
+    /**
+     * BaseMiddleware constructor.
+     *
+     * @param Request $request
+     * @param Response $response
+     */
+    public function __construct(Request $request, Response $response)
     {
         $this->response = $response;
+        $this->request = $request;
     }
 }

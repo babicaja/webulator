@@ -2,12 +2,10 @@
 
 namespace Webulator\Middleware;
 
-use Webulator\Contracts\MiddlewareHandler as WebulatorMiddlewareHandler;
-use Webulator\Contracts\Request;
-use Webulator\Contracts\RequestHandler;
-use Webulator\Contracts\Response;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Server\MiddlewareInterface;
+use Webulator\Contracts\Middleware;
+use Webulator\Contracts\MiddlewareHandler as WebulatorMiddlewareHandler;
+use Webulator\Contracts\Response;
 
 class MiddlewareHandler implements WebulatorMiddlewareHandler
 {
@@ -17,21 +15,6 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
     private $container;
 
     /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var Response
-     */
-    private $response;
-
-    /**
-     * @var RequestHandler
-     */
-    private $requestHandler;
-
-    /**
      * MiddlewareHandler constructor.
      *
      * @param ContainerInterface $container
@@ -39,9 +22,6 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->request = $this->container->get(Request::class);
-        $this->response = $this->container->get(Response::class);
-        $this->requestHandler = $this->container->get(RequestHandler::class);
     }
 
     /**
@@ -56,15 +36,15 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
 
             if (class_exists($className)) {
 
-                $middleware = $this->container->get($className); // Some auto-wiring magic here
+                $class = $this->container->get($className); // Some auto-wiring magic here
 
-                if ($middleware instanceof MiddlewareInterface) {
-                    $this->response = call_user_func_array([$middleware, "process"], [$this->request, $this->requestHandler]);
+                if ($class instanceof Middleware) {
+                    $response = call_user_func([$class, "process"]);
                 }
             }
 
         });
 
-        return $this->response;
+        return isset($response) ? $response : $this->container->get(Response::class);
     }
 }

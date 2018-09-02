@@ -3,7 +3,6 @@
 namespace Webulator;
 
 use Psr\Container\ContainerInterface;
-use Webulator\Contracts\Dispatcher;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
@@ -19,39 +18,14 @@ class Application
     private $container;
 
     /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var Response
-     */
-    private $response;
-
-    /**
-     * @var RequestHandler
-     */
-    private $requestHandler;
-
-    /**
      * @var array
      */
     private $middleware;
 
     /**
-     * @var MiddlewareHandler
+     * @var Response
      */
-    private $middlewareHandler;
-
-    /**
-     * @var RouteCollection
-     */
-    private $routeCollection;
-
-    /**
-     * @var Dispatcher
-     */
-    private $dispatcher;
+    private $response;
 
     /**
      * Set tha application's container manager.
@@ -119,46 +93,37 @@ class Application
      * Provides route collection object.
      *
      * @return RouteCollection
+     * @throws \Exception
      */
     public function routes()
     {
-        return $this->routeCollection;
-//        return $this->resolve(RouteCollection::class);
-    }
-
-    /**
-     * Resolve building blocks out of the container.
-     *
-     * @throws \Exception
-     */
-    public function wire()
-    {
-        $this->request = $this->resolve(Request::class);
-        $this->response = $this->resolve(Response::class);
-        $this->middlewareHandler = $this->resolve(MiddlewareHandler::class);
-        $this->requestHandler = $this->resolve(RequestHandler::class);
-        $this->routeCollection = $this->resolve(RouteCollection::class);
-        $this->dispatcher = $this->resolve(Dispatcher::class);
+        return $this->resolve(RouteCollection::class);
     }
 
     /**
      * Run through all middleware.
+     *
+     * @throws \Exception
      */
     private function middleware()
     {
-        $this->response = $this->middlewareHandler->pass($this->middleware);
+        $this->response = $this->resolve(MiddlewareHandler::class)->pass($this->middleware);
     }
 
     /**
      * Handle request.
+     *
+     * @throws \Exception
      */
     private function handle()
     {
-        $this->response = $this->requestHandler->handle($this->request, $this->routeCollection, $this->dispatcher);
+        $this->response = $this->resolve(RequestHandler::class)->handle($this->resolve(Request::class));
     }
 
     /**
      * Respond with a emitter.
+     *
+     * @throws \Exception
      */
     private function respond()
     {

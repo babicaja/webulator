@@ -18,12 +18,9 @@ $app->container($container);
 $app->bind(\Webulator\Contracts\Request::class, DI\factory(function(){ return \Webulator\HTTP\ServerRequestFactory::createFromGlobals();}));
 $app->bind(\Webulator\Contracts\Response::class, DI\create(\Webulator\HTTP\Response::class));
 $app->bind(\Webulator\Contracts\Dispatcher::class, DI\autowire(\Webulator\Router\Dispatcher::class));
-$app->bind(\Webulator\Contracts\RouteCollection::class, DI\autowire(\Webulator\Router\RouteCollection::class));
+$app->bind(\Webulator\Contracts\RouteCollection::class, DI\create(\Webulator\Router\RouteCollection::class));
 $app->bind(\Webulator\Contracts\RequestHandler::class, DI\autowire(\Webulator\HTTP\RequestHandler::class));
 $app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator\Middleware\MiddlewareHandler::class));
-
-// Wire the components from.
-$app->wire();
 
 // Load middleware.
 $app->pipe([
