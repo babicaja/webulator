@@ -13,7 +13,7 @@ class Example extends BaseMiddleware
      */
     public function process(): Response
     {
-        $this->response->getBody()->write("Handled by Example Middleware.");
+//        $this->response->getBody()->write("Handled by Example Middleware.");
         return $this->response;
     }
 }
