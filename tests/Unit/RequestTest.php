@@ -42,6 +42,7 @@ class RequestTest extends BaseTest
      * @test
      * @dataProvider invalidProtocolVersions
      * @expectedException \InvalidArgumentException
+     * @param $version
      */
     public function it_can_only_set_a_proper_protocol_version($version)
     {
