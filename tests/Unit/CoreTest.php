@@ -28,21 +28,25 @@ class CoreTest extends BaseTest
         $this->assertTrue(is_string(getenv("APP_VERSION")), "The application version is not set.");
     }
 
-    /** @test */
+    /** @test
+     * @throws \ReflectionException
+     */
     public function it_can_set_middleware()
     {
         $app = $this->bootedApp();
         $app->pipe(["SomeClassName"]);
 
         // A bit of reflection because we want to check a private property.
-        $reflection = new \ReflectionClass(\Webulator\Application::class);
+        $reflection = new \ReflectionClass(Application::class);
         $middlewareProperty = $reflection->getProperty("middleware");
         $middlewareProperty->setAccessible(true);
 
         $this->assertEquals(["SomeClassName"], $middlewareProperty->getValue($app));
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function it_can_set_routes()
     {
         $app = $this->bootedApp();

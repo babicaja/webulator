@@ -3,5 +3,11 @@
         <testsuite name="webulator">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="core">
+            <file>tests/Unit/CoreTest.php</file>
+        </testsuite>
+        <testsuite name="components">
+            <file>tests/Unit/RequestTest.php</file>
+        </testsuite>
     </testsuites>
 </phpunit>
