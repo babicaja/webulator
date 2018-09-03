@@ -18,7 +18,7 @@ class ExceptionHandler
     {
         self::$exception = $exception;
 
-        'XMLHttpRequest' == ($_SERVER['X-Requested-With'] ?? '') ? self::respondWithJson() : self::respondWithHtml();
+        'XMLHttpRequest' == ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') ? self::respondWithJson() : self::respondWithHtml();
     }
 
     /**
@@ -30,7 +30,7 @@ class ExceptionHandler
         header("HTTP/1.1 503 Service Unavailable");
 
         $message = [
-            "error" => getenv("DEBUG") ? self::$exception->getMessage() : "server-error",
+            "error" => self::isDebugOn() ? self::$exception->getMessage() : "server-error",
             "message" => "The application is currently unavailable."
         ];
 
@@ -45,7 +45,7 @@ class ExceptionHandler
         header('Content-Type: text/html');
         header("HTTP/1.1 503 Service Unavailable");
 
-        if (getenv("DEBUG") == "true") {
+        if (self::isDebugOn()) {
 
             var_dump(self::$exception);
 
@@ -54,5 +54,17 @@ class ExceptionHandler
             @readfile(__DIR__ . '/../../views/error.html');
 
         }
+    }
+
+    /**
+     * @return bool
+     */
+    private static function isDebugOn()
+    {
+        $debug = getenv("DEBUG");
+
+        if ($debug == "false") $debug = false;
+
+        return (bool) $debug;
     }
 }

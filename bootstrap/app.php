@@ -28,8 +28,7 @@ $app->pipe([
 ]);
 
 // Define routes for the application.
+$app->routes()->get("/", "HomeController@welcome");
 $app->routes()->get("/home", "HomeController@welcome");
-$app->routes()->get("/home/{id:\d+}", "HomeController@welcome");
-$app->routes()->post("/home/{id:\d+}", "HomeController@welcome");
 
 return $app;
