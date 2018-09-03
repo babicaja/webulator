@@ -87,8 +87,15 @@ class RequestHandler implements WebulatorRequestHandler
             throw new \Exception("The controller ${controller} does not exist.");
         }
         else {
-            $controller = $this->container->get($fullControllerName);
-            $response = call_user_func([$controller, $method]);
+
+            $resolved = $this->container->get($fullControllerName);
+
+            if (in_array($method, get_class_methods($fullControllerName)))
+            {
+                $response = call_user_func([$resolved, $method]);
+            } else {
+                throw new \Exception("The controller ${controller} does not have the ${method} action.");
+            }
         }
 
         return $response;
