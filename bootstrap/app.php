@@ -27,8 +27,4 @@ $app->pipe([
     \Webulator\Middleware\Example::class,
 ]);
 
-// Define routes for the application.
-$app->routes()->get("/", "HomeController@welcome");
-$app->routes()->get("/home", "HomeController@welcome");
-
 return $app;
