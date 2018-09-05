@@ -46,55 +46,52 @@ class RequestHandler implements WebulatorRequestHandler
      */
     public function handle(Request $request): Response
     {
-        $data = $this->dispatcher->dispatch($request);
+        $match = $this->dispatcher->dispatch($request);
 
-        switch ($data[0]) {
-            case 0: // Not found.
-                $this->response = $this->response->withStatus(404, "Not Found");
-                $this->response->getBody()->write("Sorry the page does not exist.");
+        switch ($match->status()) {
+            case $match::FOUND:
+                return $this->execute($match);
                 break;
-            case 1: // Found.
-                $this->response = $this->delegate($data[1]);
+            case $match::NOT_ALLOWED:
+                $match->controller("RouteErrorController");
+                $match->action("notAllowed");
+                return $this->execute($match);
                 break;
-            case 3: // Method not allowed.
-                $this->response->getBody()->write("Almost there, route exists but wrong verb.");
-                break;
-            default: // Same as not found.
-                $this->response->getBody()->write("Route not found, but why am I here.");
+            case $match::NOT_FOUND:
+            default:
+                $match->controller("RouteErrorController");
+                $match->action("notFound");
+                return $this->execute($match);
                 break;
         }
-
-        return $this->response;
     }
 
     /**
-     * Check and create controller and call adequate action.
-     *
-     * @param $handler
-     * @return Response
+     * @param Match $match
+     * @return mixed
      * @throws \Exception
      */
-    private function delegate(string $handler)
+    private function execute(Match $match)
     {
-        $data = explode("@", $handler);
-        $controller = $data[0];
-        $method = $data[1] ?? 'index';
+        $controller = $match->controller();
+        $action = $match->action();
+        $parameters = $match->parameters();
 
-        $fullControllerName = __NAMESPACE__ . "\\Controllers" . "\\" . $controller;
+        $fullControllerName = "\\Webulator\\HTTP\\Controllers" . "\\" . $controller;
 
         if (!class_exists($fullControllerName))
         {
-            throw new \Exception("The controller ${controller} does not exist.");
+            throw new \Exception("The controller ${fullControllerName} does not exist.");
         }
         else {
 
             $resolved = $this->container->get($fullControllerName);
 
-            if (in_array($method, get_class_methods($fullControllerName)))
+            if (in_array($action, get_class_methods($fullControllerName)))
             {
-                $response = call_user_func([$resolved, $method]);
+                $response = call_user_func_array([$resolved, $action], $parameters);
             } else {
-                throw new \Exception("The controller ${controller} does not have the ${method} action.");
+                throw new \Exception("The controller ${controller} does not have the ${action} action.");
             }
         }
 

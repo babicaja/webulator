@@ -2,10 +2,14 @@
 
 namespace Webulator\HTTP\Controllers;
 
+use Webulator\Contracts\Response;
+
 class HomeController extends BaseController
 {
     /**
-     * @return mixed|\Webulator\Contracts\Response
+     * Shows the welcome page.
+     *
+     * @return \Webulator\Contracts\Response
      */
     public function welcome()
     {
