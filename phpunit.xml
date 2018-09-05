@@ -8,6 +8,13 @@
         </testsuite>
         <testsuite name="components">
             <file>tests/Unit/RequestTest.php</file>
+            <file>tests/Unit/ResponseTest.php</file>
+        </testsuite>
+        <testsuite name="request">
+            <file>tests/Unit/RequestTest.php</file>
+        </testsuite>
+        <testsuite name="response">
+            <file>tests/Unit/ResponseTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
