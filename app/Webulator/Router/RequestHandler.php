@@ -1,6 +1,6 @@
 <?php
 
-namespace Webulator\HTTP;
+namespace Webulator\Router;
 
 use Psr\Container\ContainerInterface;
 use Webulator\Contracts\Dispatcher;
