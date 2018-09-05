@@ -80,9 +80,9 @@ class Dispatcher implements WebulatorDispatcher
      */
     private function extractData($data)
     {
-        $data = explode("@", $data[1]);
-        $controller = $data[0];
-        $method = $data[1] ?? 'index';
+        $action = explode("@", $data[1]);
+        $controller = $action[0];
+        $method = $action[1] ?? 'index';
         $parameters = isset($data[2]) ? $data[2] : [];
 
         return [$controller, $method, $parameters];
