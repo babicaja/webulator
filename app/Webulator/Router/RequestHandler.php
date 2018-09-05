@@ -7,6 +7,7 @@ use Webulator\Contracts\Dispatcher;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler as WebulatorRequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Exceptions\ControllerDoesNotExistException;
 
 class RequestHandler implements WebulatorRequestHandler
 {
@@ -14,11 +15,6 @@ class RequestHandler implements WebulatorRequestHandler
      * @var Dispatcher
      */
     private $dispatcher;
-
-    /**
-     * @var Response
-     */
-    private $response;
 
     /**
      * @var ContainerInterface
@@ -33,7 +29,6 @@ class RequestHandler implements WebulatorRequestHandler
     public function __construct(ContainerInterface $container)
     {
         $this->dispatcher = $container->get(Dispatcher::class);
-        $this->response = $container->get(Response::class);
         $this->container = $container;
     }
 
@@ -67,6 +62,8 @@ class RequestHandler implements WebulatorRequestHandler
     }
 
     /**
+     * Loads the container and calls the desired method based on the data from the Match object.
+     *
      * @param Match $match
      * @return mixed
      * @throws \Exception
@@ -77,24 +74,37 @@ class RequestHandler implements WebulatorRequestHandler
         $action = $match->action();
         $parameters = $match->parameters();
 
-        $fullControllerName = "\\Webulator\\HTTP\\Controllers" . "\\" . $controller;
+        $resolvedController = $this->resolveController($controller);
 
-        if (!class_exists($fullControllerName))
+
+        if (in_array($action, get_class_methods($resolvedController)))
         {
-            throw new \Exception("The controller ${fullControllerName} does not exist.");
+            $response = call_user_func_array([$resolvedController, $action], $parameters);
         }
-        else {
-
-            $resolved = $this->container->get($fullControllerName);
-
-            if (in_array($action, get_class_methods($fullControllerName)))
-            {
-                $response = call_user_func_array([$resolved, $action], $parameters);
-            } else {
-                throw new \Exception("The controller ${controller} does not have the ${action} action.");
-            }
+        else
+        {
+            throw new \Exception("The controller ${controller} does not have the ${action} action.");
         }
 
         return $response;
+    }
+
+    /**
+     * Try to resolve the controller out of the container.
+     *
+     * @param string $controller
+     * @return mixed
+     * @throws ControllerDoesNotExistException
+     */
+    private function resolveController($controller)
+    {
+       $qualifiedName = "\\Webulator\\HTTP\\Controllers\\".$controller;
+
+        if (!class_exists($qualifiedName))
+        {
+            throw new ControllerDoesNotExistException("The controller ${controller} does not exist.");
+        }
+
+        return $this->container->get($qualifiedName);
     }
 }

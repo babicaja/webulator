@@ -9,7 +9,7 @@ try {
 
     // Define routes for the application.
     $app->routes()->get("/", "HomeController@welcome");
-    $app->routes()->post("/post", "HomeController@welcome");
+    $app->routes()->post("/post/{id}", "HomeController@welcome");
 
     // Execute.
     $app->run();

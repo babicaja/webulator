@@ -31,6 +31,8 @@ class Dispatcher implements WebulatorDispatcher
     }
 
     /**
+     * Dispatches the request and creates a Match object.
+     *
      * @param Request $request
      * @return mixed
      */
@@ -55,6 +57,11 @@ class Dispatcher implements WebulatorDispatcher
         return $this->match;
     }
 
+    /**
+     * Populate Match object with dispatched data.
+     *
+     * @param $data
+     */
     private function populateMatch($data)
     {
         list($controller, $action, $parameters) = $this->extractData($data);
@@ -65,6 +72,12 @@ class Dispatcher implements WebulatorDispatcher
         $this->match->parameters($parameters);
     }
 
+    /**
+     * Extracts and formats the data in the desired form.
+     *
+     * @param $data
+     * @return array
+     */
     private function extractData($data)
     {
         $data = explode("@", $data[1]);

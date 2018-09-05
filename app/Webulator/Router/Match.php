@@ -40,7 +40,7 @@ class Match
     }
 
     /**
-     * Returns status or sets the status if $status parameter is passed.
+     * Returns the status or sets the status if $status parameter is passed.
      *
      * @param int $status
      * @return int
@@ -53,8 +53,9 @@ class Match
 
         return $this->status;
     }
+
     /**
-     * Returns controller or sets the controller if $controller parameter is passed.
+     * Returns the controller or sets the controller if $controller parameter is passed.
      *
      * @param string $controller
      * @return string
@@ -70,7 +71,7 @@ class Match
     }
 
     /**
-     * Returns action or sets the action if $action parameter is passed.
+     * Returns the action or sets the action if $action parameter is passed.
      *
      * @param string $action
      * @return string
@@ -86,7 +87,7 @@ class Match
     }
 
     /**
-     * Returns parameters or sets parameters if the $parameters parameter is passed.
+     * Returns the parameters or sets parameters if the $parameters parameter is passed.
      *
      * @param array $parameters
      * @return array
