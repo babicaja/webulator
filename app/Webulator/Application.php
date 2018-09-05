@@ -2,7 +2,7 @@
 
 namespace Webulator;
 
-use Psr\Container\ContainerInterface;
+use DI\Container;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
@@ -13,7 +13,7 @@ use Webulator\Exceptions\ContainerResolveException;
 class Application
 {
     /**
-     * @var ContainerInterface
+     * @var Container
      */
     private $container;
 
@@ -30,9 +30,9 @@ class Application
     /**
      * Set tha application's container manager.
      *
-     * @param ContainerInterface $container
+     * @param Container $container
      */
-    public function container(ContainerInterface $container)
+    public function container(Container $container)
     {
         $this->container = $container;
     }
