@@ -3,6 +3,7 @@
 namespace Webulator\HTTP\Controllers;
 
 use Psr\Container\ContainerInterface;
+use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
 
 abstract class BaseController
@@ -23,9 +24,19 @@ abstract class BaseController
     }
 
     /**
+     * Get the request instance.
+     *
+     * @return Request
+     */
+    public function request()
+    {
+        return $this->container->get(Request::class);
+    }
+
+    /**
      * Get the response instance.
      *
-     * @return mixed|Response
+     * @return Response
      */
     public function response()
     {
