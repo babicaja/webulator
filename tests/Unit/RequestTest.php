@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use Tests\Traits\TestsHttpMessages;
 use Webulator\Contracts\Request;
 use Zend\Diactoros\PhpInputStream;
 use Zend\Diactoros\UploadedFile;
@@ -11,6 +12,8 @@ use Zend\Diactoros\Uri;
 
 class RequestTest extends BaseTest
 {
+    use TestsHttpMessages;
+
     /**
      * @var Request
      */
@@ -26,134 +29,9 @@ class RequestTest extends BaseTest
         parent::setUp();
 
         $this->request = $this->bootedApp()->resolve(Request::class);
+        $this->message($this->request);
     }
 
-    /** @test */
-    public function it_can_set_and_get_the_protocol_version()
-    {
-        $request = $this->request->withProtocolVersion("1.0");
-        $this->assertEquals("1.0", $request->getProtocolVersion(), "The protocol version can't be set.");
-
-        $request = $this->request->withProtocolVersion("1.1");
-        $this->assertEquals("1.1", $request->getProtocolVersion(), "The protocol version can't be set.");
-    }
-
-    /**
-     * @test
-     * @dataProvider invalidProtocolVersions
-     * @expectedException \InvalidArgumentException
-     * @param $version
-     */
-    public function it_can_only_set_a_proper_protocol_version($version)
-    {
-        $this->request->withProtocolVersion($version);
-    }
-
-    /**
-     * Data provider for the invalid protocol version tests.
-     *
-     * @return array
-     */
-    public function invalidProtocolVersions()
-    {
-        return [
-            [1, "Version can't be a number"],
-            [1.0, "Version can't be a double"],
-            ["1", "Version must be a either 1.0 or 1.1 and not other strings"],
-            ["", "Version can't be an empty string"],
-            [null, "Version can't be null"],
-        ];
-    }
-
-    /** @test */
-    public function it_can_get_the_headers()
-    {
-        $request = $this->request->withHeader("x-header-one", "one");
-        $request = $request->withHeader("x-header-two", "two");
-
-        $headers = $request->getHeaders();
-
-        $this->assertArrayHasKey("x-header-one", $headers, "The header x-header-one was not set.");
-        $this->assertArrayHasKey("x-header-two", $headers, "The header x-header-two was not set.");
-
-        $this->assertEquals("one", $headers["x-header-one"][0], "The header x-header-one does not have the right value.");
-        $this->assertEquals("two", $headers["x-header-two"][0], "The header x-header-two does not have the right value.");
-    }
-
-    /** @test */
-    public function it_can_check_if_a_header_exists()
-    {
-        $request = $this->request->withHeader("x-header-one", "one");
-        $this->assertTrue($request->hasHeader("x-header-one"), "The header x-header-one does not exist.");
-    }
-
-    /** @test */
-    public function it_can_return_a_specific_header()
-    {
-        $request = $this->request->withHeader("x-header-one", "one");
-        $this->assertEquals(["one"], $request->getHeader("x-header-one"), "The specific header does not exist.");
-        $this->assertEquals([], $request->getHeader("x-header-two"), "If there header is not set an empty array is returned.");
-    }
-
-    /** @test */
-    public function it_can_return_a_header_line()
-    {
-        $request = $this->request->withHeader("x-header-one", [1,2]);
-        $request = $request->withAddedHeader("x-header-one", [3,4]);
-
-        $headerLine = $request->getHeaderLine("x-header-one");
-
-        $this->assertEquals("1,2,3,4", $headerLine, "The header line is not as expected.");
-
-        $headerLine = $request->getHeaderLine("x-header-two");
-        $this->assertEquals("", $headerLine, "If the header is not set an empty string is returned.");
-    }
-
-    /** @test */
-    public function it_can_unset_a_header()
-    {
-        $request = $this->request->withHeader("x-header-one", "one");
-        $request = $request->withoutHeader("x-header-one");
-
-        $this->assertFalse($request->hasHeader("x-header-one"));
-    }
-
-    /**
-     * @test
-     * @dataProvider invalidHeaders
-     * @expectedException \InvalidArgumentException
-     * @param $name
-     * @param $value
-     */
-    public function it_can_only_set_proper_headers($name, $value)
-    {
-        $this->request->withHeader($name, $value);
-    }
-
-    /**
-     * Data provider for invalid headers.
-     *
-     * @return array
-     */
-    public function invalidHeaders()
-    {
-        return [
-            [1, "value", "Header name can't be a number"],
-            ["", "value", "Header name can't be an empty string"],
-            [null, "value", "Header name can't be null"],
-            ["x-header", null, "Header value can't be null"],
-        ];
-    }
-
-    /** @test */
-    public function it_can_set_and_get_the_body()
-    {
-        $stream = new PhpInputStream();
-        $request = $this->request->withBody($stream);
-
-        $this->assertInstanceOf(StreamInterface::class, $request->getBody(), "The body can't be set.");
-        $this->assertEquals($stream, $request->getBody(), "The body can't be set.");
-    }
 
     /** @test */
     public function it_can_set_and_get_the_request_target()
