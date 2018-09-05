@@ -16,6 +16,8 @@ class RouteCollection implements WebulatorRouteCollection
 
     public function __construct()
     {
+        // The RouteCollector and its dependencies are coupled on purpose so that the DI container is not
+        // polluted by this concrete implementation.
         $collector = new RouteCollector(new Std(), new GroupCountBased());
         $this->collector = $collector;
     }
