@@ -117,10 +117,14 @@ class Match implements WebulatorMatch
         {
             $allowed = (new \ReflectionClass($this))->getConstants();
         }
+
+        // Highly unlikely to reach this section.
+        // @codeCoverageIgnoreStart
         catch (\ReflectionException $e)
         {
             $allowed = [];
         }
+        // @codeCoverageIgnoreEnd
 
         return in_array($status, $allowed);
     }
