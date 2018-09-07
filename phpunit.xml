@@ -11,6 +11,7 @@
             <file>tests/Unit/ResponseTest.php</file>
             <file>tests/Unit/RouteCollectionTest.php</file>
             <file>tests/Unit/MatchTest.php</file>
+            <file>tests/Unit/DispatcherTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -24,8 +25,8 @@
         <testsuite name="match">
             <file>tests/Unit/MatchTest.php</file>
         </testsuite>
-        <testsuite name="dispatch">
-            <file>tests/Unit/Dispatch.php</file>
+        <testsuite name="dispatcher">
+            <file>tests/Unit/DispatcherTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
