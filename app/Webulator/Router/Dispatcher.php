@@ -11,23 +11,24 @@ use Webulator\Contracts\RouteCollection;
 class Dispatcher implements WebulatorDispatcher
 {
     /**
-     * @var GroupCountBased
-     */
-    private $dispatcher;
-    /**
      * @var Match
      */
     private $match;
 
     /**
+     * @var RouteCollection
+     */
+    private $routeCollection;
+
+    /**
      * Dispatcher constructor.
      *
-     * @param RouteCollection $routes
+     * @param RouteCollection $routeCollection
      * @param Match $match
      */
-    public function __construct(RouteCollection $routes, Match $match)
+    public function __construct(RouteCollection $routeCollection, Match $match)
     {
-        $this->dispatcher = new GroupCountBased($routes->retrieve());
+        $this->routeCollection = $routeCollection;
         $this->match = $match;
     }
 
@@ -39,19 +40,19 @@ class Dispatcher implements WebulatorDispatcher
      */
     public function dispatch(Request $request): Match
     {
-        $data = $this->dispatcher->dispatch($request->getMethod(), $request->getUri()->getPath());
+        $dispatchHelper = $this->createHelper();
+        $data = $dispatchHelper->dispatch($request->getMethod(), $request->getUri()->getPath());
 
         switch ($data[0]) {
-            case $this->dispatcher::NOT_FOUND:
-                $this->match->status($this->match::NOT_FOUND);
-                break;
-            case $this->dispatcher::FOUND:
+            case $dispatchHelper::FOUND:
                 $this->populateMatch($data);
                 break;
-            case $this->dispatcher::METHOD_NOT_ALLOWED:
+            case $dispatchHelper::METHOD_NOT_ALLOWED:
                 $this->match->status($this->match::NOT_ALLOWED);
                 break;
+            case $dispatchHelper::NOT_FOUND:
             default:
+                $this->match->status($this->match::NOT_FOUND);
                 break;
         }
 
@@ -87,5 +88,16 @@ class Dispatcher implements WebulatorDispatcher
         $parameters = isset($data[2]) ? $data[2] : [];
 
         return [$controller, $method, $parameters];
+    }
+
+    /**
+     * Creates a helper based on FastRoute class.
+     *
+     * @return GroupCountBased
+     */
+    private function createHelper()
+    {
+        // Tightly coupled on purpose for this implementation.
+        return new GroupCountBased($this->routeCollection->retrieve());
     }
 }
