@@ -2,7 +2,7 @@
 
 namespace Webulator\Contracts;
 
-interface ServerRequestFactory
+interface RequestFactory
 {
     /**
      * Captures current PHP environment and request.

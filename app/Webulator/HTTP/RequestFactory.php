@@ -3,7 +3,7 @@
 namespace Webulator\HTTP;
 
 use Webulator\Contracts\Request;
-use Webulator\Contracts\ServerRequestFactory as WebulatorServerRequestFactory;
+use Webulator\Contracts\RequestFactory as WebulatorServerRequestFactory;
 use Webulator\HTTP\Request as WebulatorRequest;
 use Zend\Diactoros\ServerRequestFactory as ZendServerRequestFactory;
 use function Zend\Diactoros\marshalHeadersFromSapi;
@@ -14,7 +14,7 @@ use function Zend\Diactoros\normalizeServer;
 use function Zend\Diactoros\normalizeUploadedFiles;
 use function Zend\Diactoros\parseCookieHeader;
 
-class ServerRequestFactory extends ZendServerRequestFactory implements WebulatorServerRequestFactory
+class RequestFactory extends ZendServerRequestFactory implements WebulatorServerRequestFactory
 {
     /**
      * Captures current PHP environment and request.
@@ -60,6 +60,7 @@ class ServerRequestFactory extends ZendServerRequestFactory implements Webulator
 
     /**
      * Just to make sure that the parent function does not return the zend request object.
+     *
      * @param array|null $server
      * @param array|null $query
      * @param array|null $body

@@ -12,6 +12,7 @@
             <file>tests/Unit/RouteCollectionTest.php</file>
             <file>tests/Unit/MatchTest.php</file>
             <file>tests/Unit/DispatcherTest.php</file>
+            <file>tests/Unit/RequestFactoryTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -27,6 +28,9 @@
         </testsuite>
         <testsuite name="dispatcher">
             <file>tests/Unit/DispatcherTest.php</file>
+        </testsuite>
+        <testsuite name="request-factory">
+            <file>tests/Unit/RequestFactoryTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
