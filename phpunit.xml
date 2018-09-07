@@ -24,6 +24,9 @@
         <testsuite name="match">
             <file>tests/Unit/MatchTest.php</file>
         </testsuite>
+        <testsuite name="dispatch">
+            <file>tests/Unit/Dispatch.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
