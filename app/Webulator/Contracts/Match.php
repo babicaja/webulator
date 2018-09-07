@@ -39,4 +39,9 @@ interface Match
      * @return array
      */
     public function parameters(array $parameters = []): array;
+
+    /**
+     * Resets the object to default state.
+     */
+    public function reset();
 }
