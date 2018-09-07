@@ -19,7 +19,7 @@ class RouteCollectionTest extends BaseTest
     {
         parent::setUp();
 
-        $this->collection = $this->bootedApp()->resolve(RouteCollection::class);
+        $this->collection = $this->bootedApp()->make(RouteCollection::class);
     }
 
     /** @test */
