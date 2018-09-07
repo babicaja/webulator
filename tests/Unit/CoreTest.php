@@ -7,6 +7,9 @@ use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Router\Dispatcher;
+use Webulator\Router\Match;
+use Webulator\Router\RouteCollection;
 
 class CoreTest extends BaseTest
 {
@@ -28,7 +31,8 @@ class CoreTest extends BaseTest
         $this->assertTrue(is_string(getenv("APP_VERSION")), "The application version is not set.");
     }
 
-    /** @test
+    /**
+     * @test
      * @throws \ReflectionException
      */
     public function it_can_set_middleware()
@@ -44,7 +48,8 @@ class CoreTest extends BaseTest
         $this->assertEquals(["SomeClassName"], $middlewareProperty->getValue($app));
     }
 
-    /** @test
+    /**
+     * @test
      * @throws \Exception
      */
     public function it_can_set_routes()
@@ -84,6 +89,9 @@ class CoreTest extends BaseTest
             "Response Component" => [Response::class],
             "Request Handler Component" => [RequestHandler::class],
             "Middleware Handler Component" => [MiddlewareHandler::class],
+            "Dispatcher Component" => [Dispatcher::class],
+            "RouteCollection Component" => [RouteCollection::class],
+            "Match Component" => [Match::class],
         ];
     }
 }
