@@ -31,10 +31,7 @@ class Match implements WebulatorMatch
      */
     public function __construct()
     {
-        $this->status = self::NOT_FOUND;
-        $this->controller = '';
-        $this->action = '';
-        $this->parameters = [];
+        $this->defaults();
     }
 
     /**
@@ -45,7 +42,8 @@ class Match implements WebulatorMatch
      */
     public function status(int $status = 0)
     {
-        if ($status) {
+        if ($this->validateStatus($status))
+        {
             $this->status = $status;
         }
 
@@ -97,5 +95,44 @@ class Match implements WebulatorMatch
         }
 
         return $this->parameters;
+    }
+
+    /**
+     * Resets the object to default state.
+     */
+    public function reset()
+    {
+        $this->defaults();
+    }
+
+    /**
+     * Check if the status is one of the defined constants.
+     *
+     * @param $status
+     * @return bool
+     */
+    private function validateStatus($status)
+    {
+        try
+        {
+            $allowed = (new \ReflectionClass($this))->getConstants();
+        }
+        catch (\ReflectionException $e)
+        {
+            $allowed = [];
+        }
+
+        return in_array($status, $allowed);
+    }
+
+    /**
+     * Sets the defaults for the match object.
+     */
+    private function defaults(): void
+    {
+        $this->status = self::NOT_FOUND;
+        $this->controller = '';
+        $this->action = '';
+        $this->parameters = [];
     }
 }

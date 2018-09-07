@@ -10,6 +10,7 @@
             <file>tests/Unit/RequestTest.php</file>
             <file>tests/Unit/ResponseTest.php</file>
             <file>tests/Unit/RouteCollectionTest.php</file>
+            <file>tests/Unit/MatchTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -19,6 +20,9 @@
         </testsuite>
         <testsuite name="route-collection">
             <file>tests/Unit/RouteCollectionTest.php</file>
+        </testsuite>
+        <testsuite name="match">
+            <file>tests/Unit/MatchTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
