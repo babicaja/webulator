@@ -69,12 +69,31 @@ class Application
      */
     public function resolve(string $identifier)
     {
-        try {
-
+        try
+        {
             return $this->container->get($identifier);
+        }
+        catch (\Exception $e)
+        {
+            throw new ContainerResolveException("${identifier} could not be resolved out of the container", $e->getCode(), $e);
+        }
+    }
 
-        } catch (\Exception $e) {
-
+    /**
+     * Resolve a fresh instance out of the app's container.
+     *
+     * @param string $identifier
+     * @return mixed
+     * @throws ContainerResolveException
+     */
+    public function make(string $identifier)
+    {
+        try
+        {
+            return $this->container->make($identifier);
+        }
+        catch (\Exception $e)
+        {
             throw new ContainerResolveException("${identifier} could not be resolved out of the container", $e->getCode(), $e);
         }
     }
