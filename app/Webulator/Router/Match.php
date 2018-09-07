@@ -2,12 +2,10 @@
 
 namespace Webulator\Router;
 
-class Match
-{
-    const FOUND = 1;
-    const NOT_FOUND = 2;
-    const NOT_ALLOWED = 3;
+use Webulator\Contracts\Match as WebulatorMatch;
 
+class Match implements WebulatorMatch
+{
     /**
      * @var int
      */

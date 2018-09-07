@@ -2,8 +2,6 @@
 
 namespace Webulator\HTTP\Controllers;
 
-use Webulator\Contracts\Response;
-
 class HomeController extends BaseController
 {
     /**

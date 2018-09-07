@@ -2,8 +2,6 @@
 
 namespace Webulator\Contracts;
 
-use Webulator\Router\Match;
-
 interface Dispatcher
 {
     /**

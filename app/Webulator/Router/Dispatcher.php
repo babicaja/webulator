@@ -4,6 +4,7 @@ namespace Webulator\Router;
 
 use FastRoute\Dispatcher\GroupCountBased;
 use Webulator\Contracts\Dispatcher as WebulatorDispatcher;
+use Webulator\Contracts\Match;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RouteCollection;
 
