@@ -22,6 +22,7 @@ $app->bind(\Webulator\Contracts\Match::class, DI\create(\Webulator\Router\Match:
 $app->bind(\Webulator\Contracts\RouteCollection::class, DI\create(\Webulator\Router\RouteCollection::class));
 $app->bind(\Webulator\Contracts\RequestHandler::class, DI\autowire(\Webulator\Router\RequestHandler::class));
 $app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator\Middleware\MiddlewareHandler::class));
+$app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class)->constructor(__ROOT__."config"));
 
 // Load middleware.
 $app->pipe([

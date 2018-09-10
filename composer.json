@@ -18,7 +18,8 @@
         "psr/http-server-middleware": "^1.0",
         "zendframework/zend-diactoros": "^1.8",
         "nikic/fast-route": "^1.3",
-        "myclabs/php-enum": "^1.6"
+        "myclabs/php-enum": "^1.6",
+        "hassankhan/config": "1.1.0"
     },
     "autoload": {
         "psr-4": {
