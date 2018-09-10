@@ -3,10 +3,12 @@
 namespace Webulator\Router;
 
 use Psr\Container\ContainerInterface;
+use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Dispatcher;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler as WebulatorRequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Contracts\Match;
 use Webulator\Exceptions\ControllerDoesNotExistException;
 
 class RequestHandler implements WebulatorRequestHandler
@@ -22,6 +24,11 @@ class RequestHandler implements WebulatorRequestHandler
     private $container;
 
     /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
      * RequestHandler constructor.
      *
      * @param ContainerInterface $container
@@ -29,6 +36,7 @@ class RequestHandler implements WebulatorRequestHandler
     public function __construct(ContainerInterface $container)
     {
         $this->dispatcher = $container->get(Dispatcher::class);
+        $this->configuration = $container->get(Configuration::class);
         $this->container = $container;
     }
 
@@ -48,15 +56,11 @@ class RequestHandler implements WebulatorRequestHandler
                 return $this->execute($match);
                 break;
             case $match::NOT_ALLOWED:
-                $match->controller("RouteErrorController");
-                $match->action("notAllowed");
-                return $this->execute($match);
+                return $this->failWith($match, "notAllowed");
                 break;
             case $match::NOT_FOUND:
             default:
-                $match->controller("RouteErrorController");
-                $match->action("notFound");
-                return $this->execute($match);
+                return $this->failWith($match, "notFound");
                 break;
         }
     }
@@ -98,7 +102,7 @@ class RequestHandler implements WebulatorRequestHandler
      */
     private function resolveController($controller)
     {
-       $qualifiedName = "\\Webulator\\HTTP\\Controllers\\".$controller;
+       $qualifiedName = $this->configuration->get("controller.namespace", "\\Webulator\\HTTP\\Controllers\\").$controller;
 
         if (!class_exists($qualifiedName))
         {
@@ -106,5 +110,21 @@ class RequestHandler implements WebulatorRequestHandler
         }
 
         return $this->container->get($qualifiedName);
+    }
+
+    /**
+     * Set the Match object to point to error handler controller and execute.
+     *
+     * @param Match $match
+     * @param string $action
+     * @return mixed
+     * @throws \Exception
+     */
+    private function failWith(Match $match, string $action)
+    {
+        $match->controller($this->configuration->get("controller.errorHandler", "RouteErrorController"));
+        $match->action($action);
+
+        return $this->execute($match);
     }
 }

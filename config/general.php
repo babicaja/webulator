@@ -1,4 +1,8 @@
 <?php
-return [
 
+return [
+    "controller" => [
+        "namespace" => "\\Webulator\\HTTP\\Controllers\\",
+        "errorHandler" => "RouteErrorController"
+    ]
 ];
