@@ -34,6 +34,9 @@ class DispatcherTest extends BaseTest
         $this->dispatcher = $this->bootedApp()->resolve(Dispatcher::class);
         $this->request = $this->bootedApp()->resolve(Request::class);
         $this->routeCollection = $this->bootedApp()->resolve(RouteCollection::class);
+
+        // Reset routes on every run.
+        $this->routeCollection->reset();
     }
 
     /**
