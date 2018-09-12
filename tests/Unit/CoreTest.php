@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Webulator\Application;
+use Webulator\Contracts\Configuration;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
@@ -92,6 +93,7 @@ class CoreTest extends BaseTest
             "Dispatcher Component" => [Dispatcher::class],
             "RouteCollection Component" => [RouteCollection::class],
             "Match Component" => [Match::class],
+            "Configuration Component" => [Configuration::class],
         ];
     }
 }
