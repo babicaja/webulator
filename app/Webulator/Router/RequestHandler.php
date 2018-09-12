@@ -80,7 +80,6 @@ class RequestHandler implements WebulatorRequestHandler
 
         $resolvedController = $this->resolveController($controller);
 
-
         if (in_array($action, get_class_methods($resolvedController)))
         {
             $response = call_user_func_array([$resolvedController, $action], $parameters);
