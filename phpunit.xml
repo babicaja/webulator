@@ -14,6 +14,7 @@
             <file>tests/Unit/DispatcherTest.php</file>
             <file>tests/Unit/RequestFactoryTest.php</file>
             <file>tests/Unit/ConfigurationTest.php</file>
+            <file>tests/Unit/RequestHandlerTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -35,6 +36,9 @@
         </testsuite>
         <testsuite name="configuration">
             <file>tests/Unit/ConfigurationTest.php</file>
+        </testsuite>
+        <testsuite name="request-handler">
+            <file>tests/Unit/RequestHandlerTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
