@@ -38,4 +38,9 @@ interface RouteCollection
      * @return mixed
      */
     public function retrieve();
+
+    /**
+     * Reset routes.
+     */
+    public function reset();
 }
