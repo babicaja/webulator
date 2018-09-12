@@ -3,7 +3,7 @@
 namespace Webulator\Middleware;
 
 use Psr\Container\ContainerInterface;
-use Webulator\Contracts\Middleware;
+use Webulator\Contracts\Configuration;
 use Webulator\Contracts\MiddlewareHandler as WebulatorMiddlewareHandler;
 use Webulator\Contracts\Response;
 
@@ -15,6 +15,11 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
     private $container;
 
     /**
+     * @var string
+     */
+    private $middlewareNamespace;
+
+    /**
      * MiddlewareHandler constructor.
      *
      * @param ContainerInterface $container
@@ -22,6 +27,7 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->middlewareNamespace = $container->get(Configuration::class)->get("middleware.namespace", "");
     }
 
     /**
@@ -32,19 +38,21 @@ class MiddlewareHandler implements WebulatorMiddlewareHandler
      */
     public function pass(array $middleware): Response
     {
-        array_walk($middleware, function($className) {
+        $response = null;
 
-            if (class_exists($className)) {
+        foreach ($middleware as $m)
+        {
+            if (class_exists($m)) {
 
-                $class = $this->container->get($className); // Some auto-wiring magic here
+                $class = $this->container->get($m); // Some auto-wiring magic here
 
-                if ($class instanceof Middleware) {
+                if (in_array("process", get_class_methods($class)))
+                {
                     $response = call_user_func([$class, "process"]);
                 }
             }
+        };
 
-        });
-
-        return isset($response) ? $response : $this->container->get(Response::class);
+        return $response ? : $this->container->get(Response::class);
     }
 }
