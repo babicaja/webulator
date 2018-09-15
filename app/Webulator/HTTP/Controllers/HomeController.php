@@ -11,7 +11,8 @@ class HomeController extends BaseController
      */
     public function welcome()
     {
-       $this->response()->getBody()->write("This is the Webulator app, welcome!");
-       return $this->response();
+        $body = $this->template->render("welcome.html", ["message" => "Welcome to the Webulator Application, have fun."]);
+        $this->response()->getBody()->write($body);
+        return $this->response();
     }
 }

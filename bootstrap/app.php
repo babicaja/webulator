@@ -15,6 +15,7 @@ $container = new \DI\Container();
 $app->container($container);
 
 // Bind key components to application.
+$app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class)->constructor(__ROOT__."config"));
 $app->bind(\Webulator\Contracts\Request::class, DI\factory(function(){ return \Webulator\HTTP\RequestFactory::createFromGlobals();}));
 $app->bind(\Webulator\Contracts\Response::class, DI\create(\Webulator\HTTP\Response::class));
 $app->bind(\Webulator\Contracts\Dispatcher::class, DI\autowire(\Webulator\Router\Dispatcher::class));
@@ -22,7 +23,7 @@ $app->bind(\Webulator\Contracts\Match::class, DI\create(\Webulator\Router\Match:
 $app->bind(\Webulator\Contracts\RouteCollection::class, DI\create(\Webulator\Router\RouteCollection::class));
 $app->bind(\Webulator\Contracts\RequestHandler::class, DI\autowire(\Webulator\Router\RequestHandler::class));
 $app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator\Middleware\MiddlewareHandler::class));
-$app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class)->constructor(__ROOT__."config"));
+$app->bind(\Webulator\Contracts\Template::class, DI\autowire(Webulator\Template::class));
 
 // Load middleware.
 $app->pipe([
