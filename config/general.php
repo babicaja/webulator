@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "debug" => getenv("DEBUG", false),
     "controller" => [
         "namespace" => "\\Webulator\\HTTP\\Controllers\\",
         "errorHandler" => "RouteErrorController"
