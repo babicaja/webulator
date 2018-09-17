@@ -3,6 +3,7 @@
 namespace Webulator\HTTP\Controllers;
 
 use Psr\Container\ContainerInterface;
+use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
 use Webulator\Contracts\Template;
@@ -17,18 +18,24 @@ abstract class BaseController
      * @var Template
      */
     protected $template;
+    /**
+     * @var Configuration
+     */
+    protected $configuration;
 
     /**
      * BaseController constructor.
      *
      * @param ContainerInterface $container
      * @param Template $template
+     * @param Configuration $configuration
      */
-    public function __construct(ContainerInterface $container, Template $template)
+    public function __construct(ContainerInterface $container, Template $template, Configuration $configuration)
     {
         $this->container = $container;
 
         $this->template = $template;
+        $this->configuration = $configuration;
     }
 
     /**
