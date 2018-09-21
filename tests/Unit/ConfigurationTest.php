@@ -21,15 +21,6 @@ class ConfigurationTest extends BaseTest
         $this->config = $this->bootedApp()->resolve(Configuration::class);
     }
 
-    /**
-     * @test
-     * @expectedException \Webulator\Exceptions\ConfigurationLoadException
-     */
-    public function it_will_fail_on_load_if_the_path_is_not_valid()
-    {
-        $this->config::load("someInvalidPath");
-    }
-
     /** @test */
     public function it_can_set_and_get_a_value()
     {
