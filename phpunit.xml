@@ -17,6 +17,7 @@
             <file>tests/Unit/RequestHandlerTest.php</file>
             <file>tests/Unit/MiddlewareHandlerTest.php</file>
             <file>tests/Unit/TemplateTest.php</file>
+            <file>tests/Unit/HelpersTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -45,8 +46,11 @@
         <testsuite name="middleware-handler">
             <file>tests/Unit/MiddlewareHandlerTest.php</file>
         </testsuite>
-        <testsuite name="Template">
+        <testsuite name="template">
             <file>tests/Unit/TemplateTest.php</file>
+        </testsuite>
+        <testsuite name="helpers">
+            <file>tests/Unit/HelpersTest.php</file>
         </testsuite>
     </testsuites>
     <filter>
