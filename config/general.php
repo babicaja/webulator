@@ -12,5 +12,11 @@ return [
     ],
     "middleware" => [
         "namespace" => "\\Webulator\\HTTP\\Middleware\\",
+    ],
+    "template" => [
+        "path" => "views"
+    ],
+    "storage" => [
+        "path" => "storage"
     ]
 ];

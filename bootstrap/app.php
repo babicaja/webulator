@@ -1,9 +1,6 @@
 <?php
-// Set ROOT path.
-define("__ROOT__", realpath(__DIR__.DIRECTORY_SEPARATOR."..").DIRECTORY_SEPARATOR);
-
 // Load the environment variables.
-(new \Symfony\Component\Dotenv\Dotenv())->load(__ROOT__.".env");
+(new \Symfony\Component\Dotenv\Dotenv())->load(rootPath(".env"));
 
 // Create the application.
 $app = new \Webulator\Application();
@@ -15,7 +12,7 @@ $container = new \DI\Container();
 $app->container($container);
 
 // Bind key components to application.
-$app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class)->constructor(__ROOT__."config"));
+$app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class));
 $app->bind(\Webulator\Contracts\Request::class, DI\factory(function(){ return \Webulator\HTTP\RequestFactory::createFromGlobals();}));
 $app->bind(\Webulator\Contracts\Response::class, DI\create(\Webulator\HTTP\Response::class));
 $app->bind(\Webulator\Contracts\Dispatcher::class, DI\autowire(\Webulator\Router\Dispatcher::class));
