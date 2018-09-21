@@ -25,7 +25,10 @@
     "autoload": {
         "psr-4": {
             "Webulator\\": "app/Webulator"
-        }
+        },
+        "files": [
+            "app/Webulator/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
