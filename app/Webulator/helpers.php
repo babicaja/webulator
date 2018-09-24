@@ -8,9 +8,9 @@ if (!function_exists("rootPath"))
      * Returns the root path of the application with an optional appended file or directory.
      *
      * @param string $append
-     * @return string
+     * @return string|false
      */
-    function rootPath(string $append = "") : string
+    function rootPath(string $append = "")
     {
         $append = ltrim($append, "/");
 
@@ -18,6 +18,6 @@ if (!function_exists("rootPath"))
             __DIR__, "..", "..", $append
         ]);
 
-        return realpath($path) ? : "";
+        return realpath($path);
     }
 }
