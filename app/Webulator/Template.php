@@ -62,7 +62,7 @@ class Template extends Twig_Environment implements WebulatorTemplate
     {
         try
         {
-            return new Twig_Loader_Filesystem(rootPath($this->configuration->get('template.path')));
+            return new Twig_Loader_Filesystem($this->configuration->get('template.path'));
         }
         catch (\Exception $exception)
         {
@@ -78,7 +78,7 @@ class Template extends Twig_Environment implements WebulatorTemplate
     private function createOptions()
     {
         return [
-            'cache' => $this->isDebugOn() ? false : rootPath($this->configuration->get("storage.path"))
+            'cache' => $this->isDebugOn() ? false : $this->configuration->get("storage.path")
         ];
     }
 
