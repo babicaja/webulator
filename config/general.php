@@ -14,9 +14,9 @@ return [
         "namespace" => "\\Webulator\\HTTP\\Middleware\\",
     ],
     "template" => [
-        "path" => "views"
+        "path" => rootPath("/views")
     ],
     "storage" => [
-        "path" => "storage"
+        "path" => rootPath("/storage")
     ]
 ];
