@@ -5,8 +5,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "dejan-babic",
-            "email": "babicaja@gmail.com"
+            "name": "Dejan Babic",
+            "email": "dejan.babic@kucasoft.com"
         }
     ],
     "require": {
@@ -20,7 +20,8 @@
         "nikic/fast-route": "^1.3",
         "myclabs/php-enum": "^1.6",
         "hassankhan/config": "1.1.0",
-        "twig/twig": "2.x-dev"
+        "twig/twig": "2.x-dev",
+        "mikey179/vfsstream": "2.0.x-dev"
     },
     "autoload": {
         "psr-4": {
