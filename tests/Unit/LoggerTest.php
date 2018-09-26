@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamFile;
 use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Logger;
 
@@ -75,7 +76,9 @@ class LoggerTest extends BaseTest
 
         $this->logger->$method($message);
 
-        $record = $this->root->getChild("storage/logs/webulator.log")->getContent();
+        /** @var vfsStreamFile $log */
+        $log = $this->root->getChild("storage/logs/webulator.log");
+        $record = $log->getContent();
 
         $this->assertContains($message, $record);
         $this->assertContains("webulator.${logKey}", $record);
