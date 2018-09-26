@@ -21,7 +21,8 @@
         "myclabs/php-enum": "^1.6",
         "hassankhan/config": "1.1.0",
         "twig/twig": "2.x-dev",
-        "mikey179/vfsstream": "2.0.x-dev"
+        "mikey179/vfsstream": "2.0.x-dev",
+        "monolog/monolog": "^1.23"
     },
     "autoload": {
         "psr-4": {
