@@ -21,7 +21,7 @@ $app->bind(\Webulator\Contracts\RouteCollection::class, DI\create(\Webulator\Rou
 $app->bind(\Webulator\Contracts\RequestHandler::class, DI\autowire(\Webulator\Router\RequestHandler::class));
 $app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator\Middleware\MiddlewareHandler::class));
 $app->bind(\Webulator\Contracts\Template::class, DI\autowire(Webulator\Template::class));
-$app->bind(\Webulator\Contracts\Logger::class, DI\autowire(Webulator\Logger::class));
+$app->bind(\Webulator\Contracts\Logger::class, DI\autowire(\Webulator\Utils\Logger::class));
 
 // Load middleware.
 $app->pipe([

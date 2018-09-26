@@ -1,6 +1,6 @@
 <?php
 
-namespace Webulator;
+namespace Webulator\Utils;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger as Monolog;
