@@ -2,59 +2,62 @@
 
 namespace Webulator\HTTP\Controllers;
 
-use Psr\Container\ContainerInterface;
 use Webulator\Contracts\Configuration;
+use Webulator\Contracts\Logger;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
+use Webulator\Contracts\RouteCollection;
 use Webulator\Contracts\Template;
 
 abstract class BaseController
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-    /**
-     * @var Template
-     */
-    protected $template;
     /**
      * @var Configuration
      */
     protected $configuration;
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
+     * @var RouteCollection
+     */
+    protected $route;
+
+    /**
+     * @var Template
+     */
+    protected $template;
+
+    /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * BaseController constructor.
      *
-     * @param ContainerInterface $container
-     * @param Template $template
      * @param Configuration $configuration
+     * @param Request $request
+     * @param Response $response
+     * @param RouteCollection $route
+     * @param Template $template
+     * @param Logger $logger
      */
-    public function __construct(ContainerInterface $container, Template $template, Configuration $configuration)
+    public function __construct(Configuration $configuration, Request $request, Response $response, RouteCollection $route, Template $template, Logger $logger)
     {
-        $this->container = $container;
-
-        $this->template = $template;
         $this->configuration = $configuration;
-    }
-
-    /**
-     * Get the request instance.
-     *
-     * @return Request
-     */
-    public function request()
-    {
-        return $this->container->get(Request::class);
-    }
-
-    /**
-     * Get the response instance.
-     *
-     * @return Response
-     */
-    public function response()
-    {
-        return $this->container->get(Response::class);
+        $this->request = $request;
+        $this->response = $response;
+        $this->route = $route;
+        $this->template = $template;
+        $this->logger = $logger;
     }
 }

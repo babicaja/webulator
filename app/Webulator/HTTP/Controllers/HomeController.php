@@ -17,7 +17,10 @@ class HomeController extends BaseController
             "appVersion" => $this->configuration->get("app.version")
         ]);
 
-        $this->response()->getBody()->write($body);
-        return $this->response();
+        $this->response->getBody()->write($body);
+
+        $this->logger->info("You have visited the Welcome page.", ["page" => "welcome"]);
+
+        return $this->response;
     }
 }

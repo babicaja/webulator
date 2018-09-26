@@ -17,7 +17,7 @@ final class RouteErrorController extends BaseController
             "message" => "The page you are looking for does not exist."
         ]);
 
-        $response = $this->response()->withStatus(404);
+        $response = $this->response->withStatus(404);
         $response->getBody()->write($body);
 
         return $response;
@@ -34,7 +34,7 @@ final class RouteErrorController extends BaseController
             "message" => "This method is not allowed."
         ]);
 
-        $response = $this->response()->withStatus(405);
+        $response = $this->response->withStatus(405);
         $response->getBody()->write($body);
 
         return $response;
