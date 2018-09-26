@@ -78,7 +78,7 @@ class Template extends Twig_Environment implements WebulatorTemplate
     private function createOptions()
     {
         return [
-            'cache' => $this->isDebugOn() ? false : $this->configuration->get("storage.path")
+            'cache' => $this->isDebugOn() ? false : $this->configuration->get("storage.path")."/cache"
         ];
     }
 
