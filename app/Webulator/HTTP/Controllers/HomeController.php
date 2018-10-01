@@ -19,8 +19,6 @@ class HomeController extends BaseController
 
         $this->response->getBody()->write($body);
 
-        $this->logger->info("You have visited the Welcome page.", ["page" => "welcome"]);
-
         return $this->response;
     }
 }

@@ -3,6 +3,7 @@
 namespace Webulator\HTTP\Controllers;
 
 use Webulator\Contracts\Configuration;
+use Webulator\Contracts\Database;
 use Webulator\Contracts\Logger;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
@@ -42,6 +43,11 @@ abstract class BaseController
     protected $logger;
 
     /**
+     * @var Database
+     */
+    protected $database;
+
+    /**
      * BaseController constructor.
      *
      * @param Configuration $configuration
@@ -50,8 +56,9 @@ abstract class BaseController
      * @param RouteCollection $route
      * @param Template $template
      * @param Logger $logger
+     * @param Database $database
      */
-    public function __construct(Configuration $configuration, Request $request, Response $response, RouteCollection $route, Template $template, Logger $logger)
+    public function __construct(Configuration $configuration, Request $request, Response $response, RouteCollection $route, Template $template, Logger $logger, Database $database)
     {
         $this->configuration = $configuration;
         $this->request = $request;
@@ -59,5 +66,6 @@ abstract class BaseController
         $this->route = $route;
         $this->template = $template;
         $this->logger = $logger;
+        $this->database = $database;
     }
 }
