@@ -21,3 +21,17 @@ if (!function_exists("rootPath"))
         return realpath($path);
     }
 }
+
+if (!function_exists("sqliteName"))
+{
+    /**
+     * Checks if the name contains the .sqlite extension and returns a path to that storage.
+     *
+     * @param string $name
+     * @return false|string
+     */
+    function sqliteName(string $name = '')
+    {
+        return strpos($name, ".sqlite") ? rootPath("storage").DIRECTORY_SEPARATOR.$name : $name;
+    }
+}

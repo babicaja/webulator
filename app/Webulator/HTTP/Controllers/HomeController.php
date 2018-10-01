@@ -19,6 +19,8 @@ class HomeController extends BaseController
 
         $this->response->getBody()->write($body);
 
+        $this->database->table("test")->get();
+
         return $this->response;
     }
 }
