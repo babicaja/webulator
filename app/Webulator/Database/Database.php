@@ -23,28 +23,21 @@ class Database implements WebulatorDatabase
     /**
      * @var QueryBuilderHandler
      */
-    private $queryBuilder;
+    private $handler;
+
+    /**
+     * @var Configuration
+     */
+    private $configuration;
 
     /**
      * Database constructor.
      *
      * @param Configuration $configuration
-     * @throws DatabaseConnectionException
      */
     public function __construct(Configuration $configuration)
     {
-        $this->verifyDriver($configuration->get("database.driver"));
-
-        try
-        {
-            $connection = new Connection($this->driver, $configuration->get("database"));
-            $this->queryBuilder = new QueryBuilderHandler($connection);
-        }
-        catch (\Exception $exception)
-        {
-            throw new DatabaseConnectionException("The connection can't be established.", 500, $exception);
-        }
-
+        $this->configuration = $configuration;
     }
 
     /**
@@ -52,11 +45,12 @@ class Database implements WebulatorDatabase
      *
      * @param $table array|string
      * @return QueryBuilderHandler
+     * @throws DatabaseConnectionException
      */
     public function table($table)
     {
         /** @noinspection PhpParamsInspection */
-        return $this->queryBuilder->table($table);
+        return $this->handler()->table($table);
     }
 
     /**
@@ -64,11 +58,36 @@ class Database implements WebulatorDatabase
      *
      * @param $sql
      * @param array $bindings
-     * @return QueryBuilderHandler
+     * @return mixed
+     * @throws DatabaseConnectionException
      */
     public function query($sql, $bindings = [])
     {
-        return $this->queryBuilder->query($sql, $bindings);
+        return $this->handler()->query($sql, $bindings);
+    }
+
+    /**
+     * Prepares the connection and query builder helper.
+     *
+     * @throws DatabaseConnectionException
+     * @return QueryBuilderHandler
+     */
+    private function handler()
+    {
+        if (isset($this->handler)) return $this->handler;
+
+        $this->verifyDriver($this->configuration->get("database.driver"));
+
+        try
+        {
+            $this->handler = new QueryBuilderHandler(new Connection($this->driver, $this->configuration->get("database")));
+
+            return $this->handler;
+        }
+        catch (\Exception $exception)
+        {
+            throw new DatabaseConnectionException("The connection can't be established.", 500, $exception);
+        }
     }
 
     /**

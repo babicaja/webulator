@@ -13,4 +13,13 @@ interface Database
      * @return QueryBuilderHandler
      */
     public function table($table);
+
+    /**
+     * Pass in a raw sql query, no questions asked.
+     *
+     * @param $sql
+     * @param array $bindings
+     * @return mixed
+     */
+    public function query($sql, $bindings = []);
 }
