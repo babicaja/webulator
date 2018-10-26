@@ -7,6 +7,7 @@ use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Contracts\ResponseEmitter;
 use Webulator\Contracts\RouteCollection;
 use Webulator\Exceptions\ContainerResolveException;
 
@@ -146,6 +147,6 @@ class Application
      */
     private function respond()
     {
-        echo $this->response->getBody();
+        return $this->resolve(ResponseEmitter::class)->emit($this->response);
     }
 }
