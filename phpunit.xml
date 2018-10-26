@@ -19,6 +19,7 @@
             <file>tests/Unit/TemplateTest.php</file>
             <file>tests/Unit/HelpersTest.php</file>
             <file>tests/Unit/LoggerTest.php</file>
+            <file>tests/Unit/HTTPClientTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -55,6 +56,9 @@
         </testsuite>
         <testsuite name="logger">
             <file>tests/Unit/LoggerTest.php</file>
+        </testsuite>
+        <testsuite name="http-client">
+            <file>tests/Unit/HTTPClientTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

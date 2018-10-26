@@ -9,6 +9,7 @@ use Webulator\Contracts\Request;
 use Webulator\Contracts\Response;
 use Webulator\Contracts\RouteCollection;
 use Webulator\Contracts\Template;
+use Webulator\Contracts\HTTPClient;
 
 abstract class BaseController
 {
@@ -48,6 +49,11 @@ abstract class BaseController
     protected $database;
 
     /**
+     * @var HTTPClient
+     */
+    protected $HTTPClient;
+
+    /**
      * BaseController constructor.
      *
      * @param Configuration $configuration
@@ -57,8 +63,9 @@ abstract class BaseController
      * @param Template $template
      * @param Logger $logger
      * @param Database $database
+     * @param HTTPClient $HTTPClient
      */
-    public function __construct(Configuration $configuration, Request $request, Response $response, RouteCollection $route, Template $template, Logger $logger, Database $database)
+    public function __construct(Configuration $configuration, Request $request, Response $response, RouteCollection $route, Template $template, Logger $logger, Database $database, HTTPClient $HTTPClient)
     {
         $this->configuration = $configuration;
         $this->request = $request;
@@ -67,5 +74,6 @@ abstract class BaseController
         $this->template = $template;
         $this->logger = $logger;
         $this->database = $database;
+        $this->HTTPClient = $HTTPClient;
     }
 }

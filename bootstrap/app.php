@@ -23,6 +23,7 @@ $app->bind(\Webulator\Contracts\MiddlewareHandler::class, DI\autowire(\Webulator
 $app->bind(\Webulator\Contracts\Template::class, DI\autowire(Webulator\Template::class));
 $app->bind(\Webulator\Contracts\Logger::class, DI\autowire(\Webulator\Utils\Logger::class));
 $app->bind(\Webulator\Contracts\Database::class, DI\autowire(\Webulator\Database\Database::class));
+$app->bind(\Webulator\Contracts\HTTPClient::class, DI\autowire(\Webulator\Utils\HTTPClient::class));
 
 // Load middleware.
 $app->pipe([
