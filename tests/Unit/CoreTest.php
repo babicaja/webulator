@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Webulator\Application;
 use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Database;
+use Webulator\Contracts\HTTPClient;
+use Webulator\Contracts\Logger;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
@@ -95,7 +97,9 @@ class CoreTest extends BaseTest
             "RouteCollection Component" => [RouteCollection::class],
             "Match Component" => [Match::class],
             "Configuration Component" => [Configuration::class],
+            "Logger Component" => [Logger::class],
             "Database Component" => [Database::class],
+            "HTTPClient Component" => [HTTPClient::class],
         ];
     }
 }
