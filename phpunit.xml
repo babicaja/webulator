@@ -64,6 +64,9 @@
         <testsuite name="response-emitter">
             <file>tests/Unit/ResponseEmitterTest.php</file>
         </testsuite>
+        <testsuite name="exception-handler">
+            <file>tests/Unit/ExceptionHandlerTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

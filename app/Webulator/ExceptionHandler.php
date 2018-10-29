@@ -5,18 +5,18 @@ namespace Webulator;
 class ExceptionHandler
 {
     /**
-     * @var \Exception
+     * @var \Throwable
      */
-    private static $exception;
+    private static $throwable;
 
     /**
      * Captures any unhandled exceptions.
      *
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      */
-    public static function capture(\Exception $exception)
+    public static function capture(\Throwable $throwable)
     {
-        self::$exception = $exception;
+        self::$throwable = $throwable;
 
         'XMLHttpRequest' == ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') ? self::respondWithJson() : self::respondWithHtml();
     }
@@ -26,11 +26,11 @@ class ExceptionHandler
      */
     private static function respondWithJson()
     {
-        header('Content-Type: application/json');
+        header('Content-Type:application/json');
         header("HTTP/1.1 503 Service Unavailable");
 
         $message = [
-            "error" => self::isDebugOn() ? self::$exception->getMessage() : "server-error",
+            "error" => self::isDebugOn() ? self::$throwable->getMessage() : "server-error",
             "message" => "The application is currently unavailable."
         ];
 
@@ -42,18 +42,12 @@ class ExceptionHandler
      */
     private static function respondWithHtml()
     {
-        header('Content-Type: text/html');
+        header('Content-Type:text/html');
         header("HTTP/1.1 503 Service Unavailable");
 
-        if (self::isDebugOn()) {
+        $message = self::isDebugOn() ? self::$throwable->getMessage() : '';
 
-            var_dump(self::$exception);
-
-        } else {
-
-            @readfile(__DIR__ . '/../../views/error.html');
-
-        }
+        echo self::htmlTemplate($message);
     }
 
     /**
@@ -66,5 +60,16 @@ class ExceptionHandler
         if ($debug == "false") $debug = false;
 
         return (bool) $debug;
+    }
+
+    /**
+     * Render html message.
+     *
+     * @param string|null $message
+     * @return string
+     */
+    private static function htmlTemplate(string $message = '')
+    {
+        return "<div style='text-align:center;width:640px;margin:200px auto'><h2>Sorry, something went horribly wrong.</h2><br>${message}</div>";
     }
 }
