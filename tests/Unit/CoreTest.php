@@ -11,6 +11,7 @@ use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
+use Webulator\Contracts\ResponseEmitter;
 use Webulator\Router\Dispatcher;
 use Webulator\Router\Match;
 use Webulator\Router\RouteCollection;
@@ -100,6 +101,7 @@ class CoreTest extends BaseTest
             "Logger Component" => [Logger::class],
             "Database Component" => [Database::class],
             "HTTPClient Component" => [HTTPClient::class],
+            "Response Emitter Component" => [ResponseEmitter::class],
         ];
     }
 }
