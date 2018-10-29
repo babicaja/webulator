@@ -5,12 +5,14 @@ namespace Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use Webulator\ExceptionHandler;
 
+/**
+ * Class ExceptionHandlerTest
+ * @package Tests\Unit
+ * @runTestsInSeparateProcesses
+ */
 class ExceptionHandlerTest extends TestCase
 {
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_will_show_a_simple_json_error_if_debug_is_off()
     {
         $this->debugOff();
@@ -25,10 +27,7 @@ class ExceptionHandlerTest extends TestCase
         $this->checkJSON($contentType, $code, $content);
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_will_show_a_detailed_json_error_if_debug_is_on()
     {
         $message = "test-ajax-debug-on";
@@ -45,10 +44,7 @@ class ExceptionHandlerTest extends TestCase
         $this->checkJSON($contentType, $code, $content);
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_will_show_a_simple_html_error_if_debug_is_off()
     {
         $this->debugOff();
@@ -63,10 +59,7 @@ class ExceptionHandlerTest extends TestCase
         $this->checkHTML($contentType, $code);
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_will_show_a_detailed_html_error_if_debug_is_on()
     {
         $message = "test-html-debug-on";
