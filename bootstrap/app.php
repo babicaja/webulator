@@ -12,6 +12,7 @@ $container = new \DI\Container();
 $app->container($container);
 
 // Bind key components to application.
+$app->bind(\Webulator\Contracts\ErrorHandler::class, DI\create(\Webulator\Utils\ErrorHandler::class));
 $app->bind(\Webulator\Contracts\Configuration::class, DI\create(\Webulator\Configuration::class));
 $app->bind(\Webulator\Contracts\Request::class, DI\factory(function(){ return \Webulator\HTTP\RequestFactory::createFromGlobals();}));
 $app->bind(\Webulator\Contracts\Response::class, DI\create(\Webulator\HTTP\Response::class));

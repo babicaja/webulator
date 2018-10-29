@@ -3,6 +3,7 @@
 namespace Webulator;
 
 use DI\Container;
+use Webulator\Contracts\ErrorHandler;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
@@ -45,6 +46,7 @@ class Application
      */
     public function run()
     {
+        $this->withErrorHandling();
         $this->middleware();
         $this->handle();
         $this->respond();
@@ -118,6 +120,14 @@ class Application
     public function routes()
     {
         return $this->resolve(RouteCollection::class);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function withErrorHandling()
+    {
+        $this->resolve(ErrorHandler::class);
     }
 
     /**
