@@ -47,11 +47,10 @@ class ResponseEmitterTest extends BaseTest
         // Get the emitted headers status code and content
         $header = explode(':', xdebug_get_headers()[0])[0];
         $code = http_response_code();
-        $content = ob_get_contents();
 
         $this->assertTrue($result);
         $this->assertEquals("X-Test", $header);
         $this->assertEquals(202, $code);
-        $this->assertEquals('test-output', $content);
+        $this->expectOutputString("test-output");
     }
 }
