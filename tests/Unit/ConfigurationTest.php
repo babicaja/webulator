@@ -62,6 +62,4 @@ class ConfigurationTest extends BaseTest
 
         putenv("CONFIG_PATH={$this->originalPath}");
     }
-
-
 }
