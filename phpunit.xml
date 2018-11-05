@@ -67,6 +67,9 @@
         <testsuite name="exception-handler">
             <file>tests/Unit/ExceptionHandlerTest.php</file>
         </testsuite>
+        <testsuite name="feature-example">
+            <file>tests/Feature/ExampleTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
