@@ -10,7 +10,7 @@ class HelpersTest extends TestCase
     public function it_can_return_the_root_path()
     {
         $this->assertNotEmpty(rootPath());
-        $this->assertStringEndsWith("kucasoft\webulator", rootPath());
+        $this->assertStringEndsWith("kucasoft". DIRECTORY_SEPARATOR ."webulator", rootPath());
     }
 
     /** @test */
