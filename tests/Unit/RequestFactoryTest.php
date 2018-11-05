@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Webulator\Contracts\Request;
 use Webulator\HTTP\RequestFactory;
 
-class RequestFactoryTest extends BaseTest
+class RequestFactoryTest extends UnitBase
 {
     /** @test */
     public function it_can_create_a_proper_request()

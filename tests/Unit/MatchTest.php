@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Webulator\Contracts\Match;
 
-class MatchTest extends BaseTest
+class MatchTest extends UnitBase
 {
     /**
      * @var Match

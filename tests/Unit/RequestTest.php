@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 use Tests\Traits\TestsHttpMessages;
 use Webulator\Contracts\Request;
@@ -10,7 +9,7 @@ use Zend\Diactoros\PhpInputStream;
 use Zend\Diactoros\UploadedFile;
 use Zend\Diactoros\Uri;
 
-class RequestTest extends BaseTest
+class RequestTest extends UnitBase
 {
     use TestsHttpMessages;
 

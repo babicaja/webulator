@@ -8,7 +8,7 @@ use Webulator\Contracts\Configuration;
 use Webulator\Exceptions\ContainerResolveException;
 use Webulator\Exceptions\TemplateSetupException;
 
-class TemplateTest extends BaseTest
+class TemplateTest extends UnitBase
 {
     /**
      * @var Configuration

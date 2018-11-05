@@ -25,7 +25,8 @@
         "monolog/monolog": "^1.23",
         "usmanhalalit/pixie": "^2.0",
         "guzzlehttp/guzzle": "6.3.3",
-        "zendframework/zend-httphandlerrunner": "^1.0"
+        "zendframework/zend-httphandlerrunner": "^1.0",
+        "ext-xdebug": "^2.6"
     },
     "autoload": {
         "psr-4": {

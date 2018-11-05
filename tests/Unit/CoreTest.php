@@ -16,7 +16,7 @@ use Webulator\Router\Dispatcher;
 use Webulator\Router\Match;
 use Webulator\Router\RouteCollection;
 
-class CoreTest extends BaseTest
+class CoreTest extends UnitBase
 {
     /** @test */
     public function it_can_bootstrap_the_application()

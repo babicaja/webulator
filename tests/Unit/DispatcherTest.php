@@ -7,7 +7,7 @@ use Webulator\Contracts\Match;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RouteCollection;
 
-class DispatcherTest extends BaseTest
+class DispatcherTest extends UnitBase
 {
     /**
      * @var Request

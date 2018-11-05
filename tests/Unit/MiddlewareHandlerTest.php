@@ -6,7 +6,7 @@ use Webulator\Contracts\Configuration;
 use Webulator\Contracts\MiddlewareHandler;
 use Webulator\Contracts\Response;
 
-class MiddlewareHandlerTest extends BaseTest
+class MiddlewareHandlerTest extends UnitBase
 {
     /**
      * @var MiddlewareHandler

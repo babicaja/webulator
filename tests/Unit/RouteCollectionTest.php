@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Webulator\Contracts\RouteCollection;
 
-class RouteCollectionTest extends BaseTest
+class RouteCollectionTest extends UnitBase
 {
     /**
      * @var RouteCollection

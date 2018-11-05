@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits\MakesApp;
 
-abstract class BaseTest extends TestCase
+abstract class UnitBase extends TestCase
 {
     use MakesApp;
 

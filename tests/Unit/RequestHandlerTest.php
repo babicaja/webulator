@@ -8,7 +8,7 @@ use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\Response;
 use Webulator\Contracts\RouteCollection;
 
-class RequestHandlerTest extends BaseTest
+class RequestHandlerTest extends UnitBase
 {
     /**
      * @var RequestHandler

@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Webulator\Contracts\Response;
 use Webulator\Contracts\ResponseEmitter;
 
-class ResponseEmitterTest extends BaseTest
+class ResponseEmitterTest extends UnitBase
 {
     /**
      * @var ResponseEmitter

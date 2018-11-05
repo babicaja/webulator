@@ -6,7 +6,7 @@ use Webulator\Contracts\Configuration;
 use Webulator\Exceptions\ConfigurationLoadException;
 use Webulator\Exceptions\ContainerResolveException;
 
-class ConfigurationTest extends BaseTest
+class ConfigurationTest extends UnitBase
 {
     /**
      * @var Configuration

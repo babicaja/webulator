@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Webulator\Contracts\HTTPClient;
 
-class HTTPClientTest extends BaseTest
+class HTTPClientTest extends UnitBase
 {
     /**
      * @var HTTPClient

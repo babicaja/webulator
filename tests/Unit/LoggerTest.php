@@ -8,7 +8,7 @@ use org\bovigo\vfs\vfsStreamFile;
 use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Logger;
 
-class LoggerTest extends BaseTest
+class LoggerTest extends UnitBase
 {
     /**
      * @var Configuration

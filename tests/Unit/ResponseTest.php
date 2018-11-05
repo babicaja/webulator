@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\Traits\TestsHttpMessages;
 use Webulator\Contracts\Response;
 
-class ResponseTest extends BaseTest
+class ResponseTest extends UnitBase
 {
     use TestsHttpMessages;
 
