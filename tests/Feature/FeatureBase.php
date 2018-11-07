@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use PHPUnit\Framework\TestCase;
 use Tests\Traits\MakesApp;
+use Webulator\Contracts\Dispatcher;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler;
 use Webulator\Contracts\RouteCollection;
@@ -24,21 +25,21 @@ class FeatureBase extends TestCase
     public $request;
 
     /**
-     * @throws \Exception
+     * @var RouteCollection
      */
-    public static function setUpBeforeClass()
-    {
-        parent::setUpBeforeClass();
-
-        (new FeatureBase)->bootedApp()->bind(RouteCollection::class, self::getRouteCollection());
-    }
+    protected $emptyRouteCollection;
 
     /**
      * @throws \Webulator\Exceptions\ContainerResolveException
+     * @throws \Exception
      */
     protected function setUp()
     {
         parent::setUp();
+
+        $this->emptyRouteCollection = $this->bootedApp()->resolve(RouteCollection::class);
+
+        $this->bindIndexRoutesToContainer();
 
         $this->handler = $this->bootedApp()->make(RequestHandler::class);
         $this->request = $this->bootedApp()->make(Request::class);
@@ -119,6 +120,7 @@ class FeatureBase extends TestCase
 
     /**
      * Get defined routes.
+     *
      * @throws \Exception
      */
     public function getRoutes()
@@ -130,21 +132,44 @@ class FeatureBase extends TestCase
     }
 
     /**
+     * Override the routes from index.php.
+     *
+     * @param RouteCollection $collection
+     * @throws \Webulator\Exceptions\ContainerResolveException
+     */
+    public function setRoutes(RouteCollection $collection)
+    {
+        $this->bootedApp()->bind(RouteCollection::class, $collection);
+        // We need to make a new Dispatcher as well because the new Request handler
+        // will be resolved with an old Dispatcher if not so.
+        $this->bootedApp()->bind(Dispatcher::class, $this->bootedApp()->make(Dispatcher::class));
+        $this->handler = $this->bootedApp()->make(RequestHandler::class);
+    }
+
+    /**
+     * @throws \Webulator\Exceptions\ContainerResolveException
+     */
+    private function bindIndexRoutesToContainer()
+    {
+        $this->bootedApp()->bind(RouteCollection::class, $this->getRouteCollection());
+    }
+
+    /**
      * Prepares a RouteCollection object based on scraped data from index.php.
      *
      * @throws \Webulator\Exceptions\ContainerResolveException
      */
-    private static function getRouteCollection()
+    private function getRouteCollection()
     {
-        $collection = (new FeatureBase)->bootedApp()->make(RouteCollection::class);
+        $collection = $this->bootedApp()->make(RouteCollection::class);
 
-        $routeDefinitions = self::loadRouteDefinitionsFromIndex();
+        $routeDefinitions = $this->loadRouteDefinitionsFromIndex();
 
         foreach ($routeDefinitions as $definition)
         {
-            $action = self::extractAction($definition);
-            $route = self::extractRoute($definition);
-            $handler = self::extractHandler($definition);
+            $action = $this->extractAction($definition);
+            $route = $this->extractRoute($definition);
+            $handler = $this->extractHandler($definition);
 
             call_user_func_array([$collection, $action], [$route, $handler]);
         }
@@ -157,7 +182,7 @@ class FeatureBase extends TestCase
      *
      * @return array
      */
-    private static function loadRouteDefinitionsFromIndex()
+    private function loadRouteDefinitionsFromIndex()
     {
         // Load index.php because it is the recommended place to load the routes.
         $indexAsList = file(rootPath("public/index.php"));
@@ -170,7 +195,7 @@ class FeatureBase extends TestCase
         return array_values(array_map(function ($value)
         {
             return trim($value);
-            
+
         }, $onlyRouteLines));
     }
 
@@ -180,7 +205,7 @@ class FeatureBase extends TestCase
      * @param string $definition
      * @return string
      */
-    private static function extractAction(string $definition)
+    private function extractAction(string $definition)
     {
         return trim(explode("(", explode("->", $definition)[2])[0]);
     }
@@ -191,9 +216,9 @@ class FeatureBase extends TestCase
      * @param string $definition
      * @return bool|string
      */
-    private static function extractRoute(string $definition)
+    private function extractRoute(string $definition)
     {
-        $arguments = self::getRouteDefinitionArguments($definition);
+        $arguments = $this->getRouteDefinitionArguments($definition);
 
         return substr(trim(explode(",", $arguments)[0]), 2, -1);
     }
@@ -204,9 +229,9 @@ class FeatureBase extends TestCase
      * @param string $definition
      * @return bool|string
      */
-    private static function extractHandler(string $definition)
+    private function extractHandler(string $definition)
     {
-        $arguments = self::getRouteDefinitionArguments($definition);
+        $arguments = $this->getRouteDefinitionArguments($definition);
 
         return substr(trim(explode(",", $arguments)[1]),1, -2);
     }
@@ -217,7 +242,7 @@ class FeatureBase extends TestCase
      * @param string $definition
      * @return mixed
      */
-    private static function getRouteDefinitionArguments(string $definition)
+    private function getRouteDefinitionArguments(string $definition)
     {
         preg_match_all("/\(([^\]]*)\)/", explode("->", $definition)[2], $arguments);
 
