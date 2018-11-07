@@ -34,100 +34,6 @@ class FeatureBase extends TestCase
     }
 
     /**
-     * Prepares a RouteCollection object based on scraped data from index.php.
-     *
-     * @throws \Webulator\Exceptions\ContainerResolveException
-     */
-    private static function getRouteCollection()
-    {
-        $collection = (new FeatureBase)->bootedApp()->make(RouteCollection::class);
-
-        $routeDefinitions = self::loadRouteDefinitionsFromIndex();
-
-        foreach ($routeDefinitions as $definition)
-        {
-            $action = self::extractAction($definition);
-            $route = self::extractRoute($definition);
-            $handler = self::extractHandler($definition);
-
-            call_user_func_array([$collection, $action], [$route, $handler]);
-        }
-
-        return $collection;
-    }
-
-    /**
-     * Loads the index.php and looks fro $app->route() lines.
-     *
-     * @return array
-     */
-    private static function loadRouteDefinitionsFromIndex()
-    {
-        // Load index.php because it is the recommended place to load the routes.
-        $indexAsList = file(rootPath("public/index.php"));
-        // Filter down to the $app->routes() line, the default API for defining routes.
-        $onlyRouteLines = array_filter($indexAsList, function($value)
-        {
-            return preg_match("/app->routes\(\)/", trim($value));
-        });
-        // Remove whitespaces and reset keys
-        return array_values(array_map(function ($value)
-        {
-            return trim($value);
-        }, $onlyRouteLines));
-    }
-
-    /**
-     * Extracts the action e.g. GET from $app->routes()->get("/", Controller-AT-action).
-     *
-     * @param string $definition
-     * @return string
-     */
-    private static function extractAction(string $definition)
-    {
-        return trim(explode("(", explode("->", $definition)[2])[0]);
-    }
-
-    /**
-     * Extracts the route e.g. "/" from $app->routes()->get("/", Controller-AT-action).
-     *
-     * @param string $definition
-     * @return bool|string
-     */
-    private static function extractRoute(string $definition)
-    {
-        $insideBracket = self::getRouteDefinitionArguments($definition);
-
-        return substr(trim(explode(",", $insideBracket)[0]), 2, -1);
-    }
-
-    /**
-     * Extracts the handler e.g. Controller-AT-action from $app->routes()->get("/", Controller-AT-action).
-     *
-     * @param string $definition
-     * @return bool|string
-     */
-    private static function extractHandler(string $definition)
-    {
-        $insideBracket = self::getRouteDefinitionArguments($definition);
-
-        return substr(trim(explode(",", $insideBracket)[1]),1, -2);
-    }
-
-    /**
-     * Helper function to extract the arguments out of the $app->routes()->get("/", Controller-AT-action).
-     *
-     * @param string $definition
-     * @return mixed
-     */
-    private static function getRouteDefinitionArguments(string $definition)
-    {
-        preg_match_all("/\(([^\]]*)\)/", explode("->", $definition)[2], $arguments);
-
-        return $arguments[0][0];
-    }
-
-    /**
      * @throws \Webulator\Exceptions\ContainerResolveException
      */
     protected function setUp()
@@ -213,6 +119,7 @@ class FeatureBase extends TestCase
 
     /**
      * Get defined routes.
+     * @throws \Exception
      */
     public function getRoutes()
     {
@@ -220,5 +127,100 @@ class FeatureBase extends TestCase
         $collection = $this->bootedApp()->resolve(RouteCollection::class);
 
         return $collection->retrieve();
+    }
+
+    /**
+     * Prepares a RouteCollection object based on scraped data from index.php.
+     *
+     * @throws \Webulator\Exceptions\ContainerResolveException
+     */
+    private static function getRouteCollection()
+    {
+        $collection = (new FeatureBase)->bootedApp()->make(RouteCollection::class);
+
+        $routeDefinitions = self::loadRouteDefinitionsFromIndex();
+
+        foreach ($routeDefinitions as $definition)
+        {
+            $action = self::extractAction($definition);
+            $route = self::extractRoute($definition);
+            $handler = self::extractHandler($definition);
+
+            call_user_func_array([$collection, $action], [$route, $handler]);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Loads the index.php and looks fro $app->route() lines.
+     *
+     * @return array
+     */
+    private static function loadRouteDefinitionsFromIndex()
+    {
+        // Load index.php because it is the recommended place to load the routes.
+        $indexAsList = file(rootPath("public/index.php"));
+        // Filter down to the $app->routes() line, the default API for defining routes.
+        $onlyRouteLines = array_filter($indexAsList, function($value)
+        {
+            return preg_match("/app->routes\(\)/", trim($value)) && (strpos(trim($value), "//") !== 0);
+        });
+        // Remove whitespaces and reset keys
+        return array_values(array_map(function ($value)
+        {
+            return trim($value);
+            
+        }, $onlyRouteLines));
+    }
+
+    /**
+     * Extracts the action e.g. GET from $app->routes()->get("/", Controller-AT-action).
+     *
+     * @param string $definition
+     * @return string
+     */
+    private static function extractAction(string $definition)
+    {
+        return trim(explode("(", explode("->", $definition)[2])[0]);
+    }
+
+    /**
+     * Extracts the route e.g. "/" from $app->routes()->get("/", Controller-AT-action).
+     *
+     * @param string $definition
+     * @return bool|string
+     */
+    private static function extractRoute(string $definition)
+    {
+        $arguments = self::getRouteDefinitionArguments($definition);
+
+        return substr(trim(explode(",", $arguments)[0]), 2, -1);
+    }
+
+    /**
+     * Extracts the handler e.g. Controller-AT-action from $app->routes()->get("/", Controller-AT-action).
+     *
+     * @param string $definition
+     * @return bool|string
+     */
+    private static function extractHandler(string $definition)
+    {
+        $arguments = self::getRouteDefinitionArguments($definition);
+
+        return substr(trim(explode(",", $arguments)[1]),1, -2);
+    }
+
+    /**
+     * Helper function to extract the arguments out of the $app->routes()->get("/", Controller-AT-action).
+     *
+     * @param string $definition
+     * @return mixed
+     */
+    private static function getRouteDefinitionArguments(string $definition)
+    {
+        preg_match_all("/\(([^\]]*)\)/", explode("->", $definition)[2], $arguments);
+
+        return $arguments[0][0];
     }
 }
