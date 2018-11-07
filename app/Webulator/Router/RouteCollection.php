@@ -28,7 +28,7 @@ class RouteCollection implements WebulatorRouteCollection
      */
     public function get(string $route, $handler)
     {
-        $this->collector->get(trim($route), trim($handler));
+        $this->collector->get($route, $handler);
     }
 
     /**
