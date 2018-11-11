@@ -11,7 +11,7 @@ class HomeController extends BaseController
      */
     public function welcome()
     {
-        $body = $this->template->render("welcome.html", [
+        $body = $this->template->render("welcome.html.twig", [
             "message" => "This is a simple web application framework based on the leading vendor components of the industry.",
             "appName" => $this->configuration->get("app.name"),
             "appVersion" => $this->configuration->get("app.version")

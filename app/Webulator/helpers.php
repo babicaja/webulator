@@ -35,3 +35,12 @@ if (!function_exists("sqliteName"))
         return strpos($name, ".sqlite") ? rootPath("storage").DIRECTORY_SEPARATOR.$name : $name;
     }
 }
+
+if (!function_exists("asset"))
+{
+    function asset(string $asset)
+    {
+
+        return DIRECTORY_SEPARATOR.$asset;
+    }
+}
