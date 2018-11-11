@@ -4,6 +4,7 @@ namespace Webulator\Utils;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
+use Umpirsky\Twig\Extension\PhpFunctionExtension;
 use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Template as WebulatorTemplate;
 use Webulator\Exceptions\TemplateRenderException;
@@ -29,6 +30,11 @@ class Template extends Twig_Environment implements WebulatorTemplate
         $options = $this->createOptions();
 
         parent::__construct($loader, $options);
+
+        $extension = new PhpFunctionExtension();
+        $extension->allowFunction("asset");
+
+        $this->addExtension($extension);
     }
 
     /**
