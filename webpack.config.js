@@ -1,5 +1,10 @@
 let path = require('path');
+
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let CleanPlugin = require('clean-webpack-plugin');
+let CopyPlugin = require('copy-webpack-plugin');
+let ImageminPlugin = require('imagemin-webpack-plugin').default;
+
 
 module.exports = {
 
@@ -13,7 +18,7 @@ module.exports = {
     },
 
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'public/assets'),
         filename: '[name].js'
     },
 
@@ -44,16 +49,38 @@ module.exports = {
                     "sass-loader" // compiles Sass to CSS, using Node Sass by default
                 ]
             },
+            {
+                test: /\.(png|jpg|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+                ]
+            }
         ]
     },
 
     plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: "[name].css",
-            // chunkFilename: "[id].css"
-        })
-    ]
 
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+        }),
+
+        new CleanPlugin(['public/assets'], {
+            root:     __dirname,
+            verbose:  true,
+            dry:      false
+        }),
+
+        new CopyPlugin([{
+            from: path.resolve(__dirname, "assets/images"),
+            to: path.resolve(__dirname, "public/assets/images"),
+        }]),
+
+        new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
+
+    ]
 };
