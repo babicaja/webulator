@@ -40,7 +40,6 @@ if (!function_exists("asset"))
 {
     function asset(string $asset)
     {
-
-        return DIRECTORY_SEPARATOR.$asset;
+        return DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$asset;
     }
 }
