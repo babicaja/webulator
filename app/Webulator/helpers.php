@@ -14,11 +14,7 @@ if (!function_exists("rootPath"))
     {
         $append = ltrim($append, "/");
 
-        $path = implode(DIRECTORY_SEPARATOR, [
-            __DIR__, "..", "..", $append
-        ]);
-
-        return realpath($path);
+        return realpath(".".DIRECTORY_SEPARATOR.$append);
     }
 }
 
@@ -38,6 +34,12 @@ if (!function_exists("sqliteName"))
 
 if (!function_exists("asset"))
 {
+    /**
+     * Points to the public/assets folder.
+     *
+     * @param string $asset
+     * @return string
+     */
     function asset(string $asset)
     {
         return DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$asset;

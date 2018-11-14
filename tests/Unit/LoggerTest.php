@@ -68,7 +68,7 @@ class LoggerTest extends UnitBase
      * @dataProvider logLevelsProvider
      * @param $level
      */
-    public function it_can_log_an_emergency($level)
+    public function it_can_log_messages_of_all_levels($level)
     {
         $message = "test-${level}-level";
         $method = strtolower($level);

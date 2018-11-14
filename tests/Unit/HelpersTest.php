@@ -2,21 +2,47 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Webulator\Contracts\Configuration;
 
-class HelpersTest extends TestCase
+class HelpersTest extends UnitBase
 {
-    /** @test */
-    public function it_can_return_the_root_path()
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
+     * Resolve the Configuration component out od the container.
+     *
+     * @throws \Exception
+     */
+    protected function setUp()
     {
-        $this->assertNotEmpty(rootPath());
-        $this->assertStringEndsWith("kucasoft". DIRECTORY_SEPARATOR ."webulator", rootPath());
+        parent::setUp();
+
+        $this->configuration = $this->bootedApp()->resolve(Configuration::class);
     }
 
-    /** @test */
-    public function it_can_append_to_a_path()
+    /** @test **/
+    public function it_can_append_a_path_to_root()
     {
-        $this->assertStringEndsWith("views", rootPath("views"));
+        $this->assertStringEndsWith("public", rootPath("public"));
+    }
+
+    /** @test **/
+    public function it_will_return_a_path_to_storage_if_name_contains_sqlite()
+    {
+        $storagePath = $this->configuration->get("storage.path");
+        $sqliteName = "test.sqlite";
+
+        $this->assertEquals($storagePath.DIRECTORY_SEPARATOR.$sqliteName, sqliteName($sqliteName));
+    }
+
+    /** @test **/
+    public function it_will_point_to_public_assets_folder()
+    {
+        $asset = "some.js";
+        $this->assertEquals(DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR.$asset, asset($asset));
     }
 }
 
