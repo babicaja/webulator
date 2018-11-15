@@ -14,7 +14,11 @@ if (!function_exists("rootPath"))
     {
         $append = ltrim($append, "/");
 
-        return realpath(".".DIRECTORY_SEPARATOR.$append);
+        $path = implode(DIRECTORY_SEPARATOR, [
+            __DIR__, "..", "..", $append
+        ]);
+
+        return realpath($path);
     }
 }
 
