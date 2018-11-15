@@ -27,7 +27,8 @@
         "guzzlehttp/guzzle": "6.3.3",
         "zendframework/zend-httphandlerrunner": "^1.0",
         "ext-xdebug": "^2.6",
-        "umpirsky/twig-php-function": "^0.2.0"
+        "umpirsky/twig-php-function": "^0.2.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
