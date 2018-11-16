@@ -67,8 +67,8 @@
         <testsuite name="exception-handler">
             <file>tests/Unit/ExceptionHandlerTest.php</file>
         </testsuite>
-        <testsuite name="feature-bad-route">
-            <file>tests/Feature/BadRouteTest.php</file>
+        <testsuite name="feature-routing">
+            <file>tests/Feature/RoutingTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

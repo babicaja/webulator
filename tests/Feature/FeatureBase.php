@@ -45,6 +45,14 @@ class FeatureBase extends TestCase
         $this->request = $this->bootedApp()->make(Request::class);
     }
 
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->emptyRouteCollection->reset();
+    }
+
+
     /**
      * Make a GET request to the underlying application.
      *
