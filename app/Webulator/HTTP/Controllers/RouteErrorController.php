@@ -30,7 +30,7 @@ final class RouteErrorController extends BaseController
      */
     public function notAllowed()
     {
-        $body = $this->template->render("error.html", [
+        $body = $this->template->render("error.html.twig", [
             "message" => "This method is not allowed."
         ]);
 
