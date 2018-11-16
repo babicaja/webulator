@@ -21,6 +21,7 @@
             <file>tests/Unit/LoggerTest.php</file>
             <file>tests/Unit/HTTPClientTest.php</file>
             <file>tests/Unit/ResponseEmitterTest.php</file>
+            <file>tests/Unit/DatabaseTest.php</file>
         </testsuite>
         <testsuite name="request">
             <file>tests/Unit/RequestTest.php</file>
@@ -66,6 +67,9 @@
         </testsuite>
         <testsuite name="exception-handler">
             <file>tests/Unit/ExceptionHandlerTest.php</file>
+        </testsuite>
+        <testsuite name="database">
+            <file>tests/Unit/DatabaseTest.php</file>
         </testsuite>
         <testsuite name="feature-routing">
             <file>tests/Feature/RoutingTest.php</file>
