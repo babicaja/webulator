@@ -13,7 +13,7 @@ final class RouteErrorController extends BaseController
      */
     public function notFound()
     {
-        $body = $this->template->render("error.html", [
+        $body = $this->template->render("error.html.twig", [
             "message" => "The page you are looking for does not exist."
         ]);
 
