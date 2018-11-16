@@ -47,7 +47,7 @@ class LoggerTest extends UnitBase
 
         // We will need the config to change the storage path
         $this->config = $this->bootedApp()->resolve(Configuration::class);
-        $this->config->set("storage.path", $this->root->url()."/storage");
+        $this->config->set("storage.path", $this->root->url().DIRECTORY_SEPARATOR."storage");
         $this->logger = $this->bootedApp()->make(Logger::class);
 
         $this->originalConfig = $this->config;
