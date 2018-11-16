@@ -5,10 +5,11 @@ namespace Webulator\Router;
 use Psr\Container\ContainerInterface;
 use Webulator\Contracts\Configuration;
 use Webulator\Contracts\Dispatcher;
+use Webulator\Contracts\Match;
 use Webulator\Contracts\Request;
 use Webulator\Contracts\RequestHandler as WebulatorRequestHandler;
 use Webulator\Contracts\Response;
-use Webulator\Contracts\Match;
+use Webulator\Exceptions\ControllerActionDoesNotExist;
 use Webulator\Exceptions\ControllerDoesNotExistException;
 
 class RequestHandler implements WebulatorRequestHandler
@@ -86,7 +87,7 @@ class RequestHandler implements WebulatorRequestHandler
         }
         else
         {
-            throw new \Exception("The controller ${controller} does not have the ${action} action.");
+            throw new ControllerActionDoesNotExist("The controller ${controller} does not have the ${action} action.");
         }
 
         return $response;
