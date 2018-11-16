@@ -34,12 +34,15 @@ class DatabaseTest extends UnitBase
 
     /**
      * Clear database instance.
+     *
+     * @throws \Webulator\Exceptions\ContainerResolveException
      */
     protected function tearDown()
     {
         parent::tearDown();
 
         $this->database = null;
+        $this->bootedApp()->make(Configuration::class);
     }
 
 

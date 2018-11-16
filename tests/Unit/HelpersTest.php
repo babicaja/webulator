@@ -20,7 +20,7 @@ class HelpersTest extends UnitBase
     {
         parent::setUp();
 
-        $this->configuration = $this->bootedApp()->resolve(Configuration::class);
+        $this->configuration = $this->bootedApp()->make(Configuration::class);
     }
 
     /** @test **/
