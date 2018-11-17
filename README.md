@@ -81,7 +81,7 @@ Visit the page in your browser
 
 > http://localhost:8000/example
 
-![Browser](http://i63.tinypic.com/1zgtk5x.png)
+![Browser](http://i64.tinypic.com/99i838.png)
 
 ## Components
 ## Assets
