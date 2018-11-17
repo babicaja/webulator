@@ -1,0 +1,83 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="webulator">
+            <directory>tests</directory>
+        </testsuite>
+        <testsuite name="core">
+            <file>tests/Unit/CoreTest.php</file>
+        </testsuite>
+        <testsuite name="components">
+            <file>tests/Unit/RequestTest.php</file>
+            <file>tests/Unit/ResponseTest.php</file>
+            <file>tests/Unit/RouteCollectionTest.php</file>
+            <file>tests/Unit/MatchTest.php</file>
+            <file>tests/Unit/DispatcherTest.php</file>
+            <file>tests/Unit/RequestFactoryTest.php</file>
+            <file>tests/Unit/ConfigurationTest.php</file>
+            <file>tests/Unit/RequestHandlerTest.php</file>
+            <file>tests/Unit/MiddlewareHandlerTest.php</file>
+            <file>tests/Unit/TemplateTest.php</file>
+            <file>tests/Unit/HelpersTest.php</file>
+            <file>tests/Unit/LoggerTest.php</file>
+            <file>tests/Unit/HTTPClientTest.php</file>
+            <file>tests/Unit/ResponseEmitterTest.php</file>
+            <file>tests/Unit/DatabaseTest.php</file>
+        </testsuite>
+        <testsuite name="request">
+            <file>tests/Unit/RequestTest.php</file>
+        </testsuite>
+        <testsuite name="response">
+            <file>tests/Unit/ResponseTest.php</file>
+        </testsuite>
+        <testsuite name="route-collection">
+            <file>tests/Unit/RouteCollectionTest.php</file>
+        </testsuite>
+        <testsuite name="match">
+            <file>tests/Unit/MatchTest.php</file>
+        </testsuite>
+        <testsuite name="dispatcher">
+            <file>tests/Unit/DispatcherTest.php</file>
+        </testsuite>
+        <testsuite name="request-factory">
+            <file>tests/Unit/RequestFactoryTest.php</file>
+        </testsuite>
+        <testsuite name="configuration">
+            <file>tests/Unit/ConfigurationTest.php</file>
+        </testsuite>
+        <testsuite name="request-handler">
+            <file>tests/Unit/RequestHandlerTest.php</file>
+        </testsuite>
+        <testsuite name="middleware-handler">
+            <file>tests/Unit/MiddlewareHandlerTest.php</file>
+        </testsuite>
+        <testsuite name="template">
+            <file>tests/Unit/TemplateTest.php</file>
+        </testsuite>
+        <testsuite name="helpers">
+            <file>tests/Unit/HelpersTest.php</file>
+        </testsuite>
+        <testsuite name="logger">
+            <file>tests/Unit/LoggerTest.php</file>
+        </testsuite>
+        <testsuite name="http-client">
+            <file>tests/Unit/HTTPClientTest.php</file>
+        </testsuite>
+        <testsuite name="response-emitter">
+            <file>tests/Unit/ResponseEmitterTest.php</file>
+        </testsuite>
+        <testsuite name="exception-handler">
+            <file>tests/Unit/ExceptionHandlerTest.php</file>
+        </testsuite>
+        <testsuite name="database">
+            <file>tests/Unit/DatabaseTest.php</file>
+        </testsuite>
+        <testsuite name="feature-routing">
+            <file>tests/Feature/RoutingTest.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./app</directory>
+        </whitelist>
+    </filter>
+</phpunit>
