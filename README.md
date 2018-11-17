@@ -10,6 +10,7 @@ All you need to do is to clone the repository, install the dependencies and fire
 git clone git@bitbucket.org:kucasoft/webulator.git
 composer install
 yarn install
+npm run dev
 php -S localhost:8000 -t public/
 ```  
 
@@ -98,5 +99,18 @@ The components you are most likely to use in your controller are listed bellow.
 | HTTPClient    | guzzlehttp/guzzle            | `$this->HTTPClient`    |
 
 ## Assets
-## Unit Tests
-## Feature Tests
+
+Assets utilize the power of Webpack. You are provided with a basic but yet powerful `webpack.config.js` which should cover most of your needs for assets compilation. The configuration provides:
+
+- Module compilation
+- Babel transpilling
+- Sass compilation
+- Image optimization
+- Asset cleanup
+
+Entry point for javascript is `assets/js/main.js` which provides a shell for a Webulator app, but also pulls in Bootstrap and jQuery.
+
+CSS is compiled through Sass starting with `assets/css/main.scss` and this provides a bootswatch theme.
+
+You can compile the assets with the `npm run dev` or if you are ready for production go with `npm run prod`
+
