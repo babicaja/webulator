@@ -104,4 +104,15 @@ class CoreTest extends UnitBase
             "Response Emitter Component" => [ResponseEmitter::class],
         ];
     }
+
+    /**
+     * @test
+     * @throws \Exception
+     * @runInSeparateProcess
+     */
+    public function it_can_make_a_run()
+    {
+        $this->bootedApp()->run();
+        $this->expectOutputRegex("/The page you are looking for does not exist./");
+    }
 }
