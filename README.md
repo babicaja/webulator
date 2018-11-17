@@ -77,13 +77,26 @@ catch (Throwable $throwable)
 }
 ```
 
-Visit the page in your browser
+Visit the page in your browser.
 
 > http://localhost:8000/example
 
 ![Browser](http://i64.tinypic.com/99i838.png)
 
 ## Components
+
+The components you are most likely to use in your controller are listed bellow.
+
+| Component     | Based on                     | Accessed by            |
+|---------------|------------------------------|------------------------|
+| Request       | zendframework/zend-diactoros | `$this->request`       |
+| Response      | zendframework/zend-diactoros | `$this->response`      |
+| Configuration | hassankhan/config            | `$this->configuration` |
+| Template      | twig/twig                    | `$this->template`      |
+| Logger        | monolog/monolog              | `$this->logger`        |
+| Database      | usmanhalalit/pixie           | `$this->database`      |
+| HTTPClient    | guzzlehttp/guzzle            | `$this->HTTPClient`    |
+
 ## Assets
 ## Unit Tests
 ## Feature Tests
