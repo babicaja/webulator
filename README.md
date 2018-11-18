@@ -8,8 +8,10 @@ All you need to do is to clone the repository, install the dependencies and fire
 
 ```bash
 git clone git@bitbucket.org:kucasoft/webulator.git
+cd webulator
 composer install
 yarn install
+cp .env.example .env
 npm run dev
 php -S localhost:8000 -t public/
 ```  
@@ -18,7 +20,7 @@ php -S localhost:8000 -t public/
 
 You would wan't to follow the next flow for introducing new functionality:
 
-Create a new controller that extends the BaseController class .This exposes the components described bellow to your controller.
+Create a new controller that extends the BaseController class. This exposes the components described bellow to your controller.
 
 > app/Webulator/HTTP/Controllers/ExampleController.php
 
@@ -112,5 +114,5 @@ Entry point for javascript is `assets/js/main.js` which provides a shell for a W
 
 CSS is compiled through Sass starting with `assets/css/main.scss` and this provides a bootswatch theme.
 
-You can compile the assets with the `npm run dev` or if you are ready for production go with `npm run prod`
+You can compile the assets with the `npm run dev` or if you are ready for production go with `npm run prod`.
 
