@@ -8,8 +8,10 @@ All you need to do is to clone the repository, install the dependencies and fire
 
 ```bash
 git clone git@bitbucket.org:kucasoft/webulator.git
+cd webulator
 composer install
 yarn install
+cp .env.example .env
 npm run dev
 php -S localhost:8000 -t public/
 ```  
