@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b537e1787a709bbd97602b94d13634d4",
+    "content-hash": "8881a27f26f5812163d8c2d6eab6b211",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -246,7 +246,7 @@
             "time": "2018-08-22T14:18:52+00:00"
         },
         {
-            "name": "jeremeamia/SuperClosure",
+            "name": "jeremeamia/superclosure",
             "version": "2.4.0",
             "source": {
                 "type": "git",
@@ -301,29 +301,35 @@
                 "serialize",
                 "tokenizer"
             ],
+            "abandoned": "opis/closure",
             "time": "2018-03-21T22:21:57+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikey179/vfsStream.git",
-                "reference": "7af4c80edc1a7e2cad08ba8ae1aad8b256ad6025"
+                "url": "https://github.com/bovigo/vfsStream.git",
+                "reference": "07d97527b058e66c63ef59f7146484cb25da5dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/7af4c80edc1a7e2cad08ba8ae1aad8b256ad6025",
-                "reference": "7af4c80edc1a7e2cad08ba8ae1aad8b256ad6025",
+                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/07d97527b058e66c63ef59f7146484cb25da5dcf",
+                "reference": "07d97527b058e66c63ef59f7146484cb25da5dcf",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
-                "bovigo/assert": "^3.1",
-                "bovigo/callmap": "^4.0",
-                "phpunit/phpunit": "^6.4"
+                "bovigo/assert": "^5.0",
+                "bovigo/callmap": "^5.0.1",
+                "doctrine/coding-standard": "^6.0",
+                "phpstan/phpstan": "^0.11.5",
+                "phpstan/phpstan-deprecation-rules": "^0.11.0",
+                "phpstan/phpstan-phpunit": "^0.11.0",
+                "phpunit/phpunit": "^8.0",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "extra": {
@@ -333,7 +339,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "org\\bovigo\\vfs\\": "src/main/php/org/bovigo/vfs"
+                    "bovigo\\vfs\\": "src",
+                    "org\\bovigo\\vfs\\": "org/bovigo/vfs"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -349,7 +356,7 @@
             ],
             "description": "Virtual file system to mock the real file system in unit tests.",
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2018-09-13T12:43:39+00:00"
+            "time": "2020-07-16T14:31:16+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1305,28 +1312,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e90c78610221f9d8e9d00a4baa2f71bb2b6ba189"
+                "reference": "b163c7f71698165ccf13738ac77273b40d5776f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e90c78610221f9d8e9d00a4baa2f71bb2b6ba189",
-                "reference": "e90c78610221f9d8e9d00a4baa2f71bb2b6ba189",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b163c7f71698165ccf13738ac77273b40d5776f8",
+                "reference": "b163c7f71698165ccf13738ac77273b40d5776f8",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
+                "php": ">=7.2.5",
                 "symfony/polyfill-ctype": "^1.8",
                 "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.3"
+                "symfony/phpunit-bridge": "^4.4.9|^5.0.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.14-dev"
                 }
             },
             "autoload": {
@@ -1349,14 +1355,13 @@
                     "role": "Lead Developer"
                 },
                 {
+                    "name": "Twig Team",
+                    "role": "Contributors"
+                },
+                {
                     "name": "Armin Ronacher",
                     "email": "armin.ronacher@active-4.com",
                     "role": "Project Founder"
-                },
-                {
-                    "name": "Twig Team",
-                    "homepage": "https://twig.symfony.com/contributors",
-                    "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -1364,7 +1369,17 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-09-20T14:27:31+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/twig/twig",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-27T19:26:34+00:00"
         },
         {
             "name": "umpirsky/twig-php-function",
@@ -1409,16 +1424,16 @@
         },
         {
             "name": "usmanhalalit/pixie",
-            "version": "2.0.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/usmanhalalit/pixie.git",
-                "reference": "5820ef4f62c7be697767fd84830b7ad6fc057375"
+                "reference": "873e70e63b6802634050d9fb3d38a9bc0c5d23fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/usmanhalalit/pixie/zipball/5820ef4f62c7be697767fd84830b7ad6fc057375",
-                "reference": "5820ef4f62c7be697767fd84830b7ad6fc057375",
+                "url": "https://api.github.com/repos/usmanhalalit/pixie/zipball/873e70e63b6802634050d9fb3d38a9bc0c5d23fc",
+                "reference": "873e70e63b6802634050d9fb3d38a9bc0c5d23fc",
                 "shasum": ""
             },
             "require": {
@@ -1461,7 +1476,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2016-04-08T10:58:01+00:00"
+            "time": "2019-11-16T12:29:06+00:00"
         },
         {
             "name": "usmanhalalit/viocon",
@@ -1572,6 +1587,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2018-09-05T19:29:37+00:00"
         },
         {
@@ -1626,6 +1642,7 @@
                 "psr-7",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-httphandlerrunner",
             "time": "2018-02-21T20:33:02+00:00"
         }
     ],
@@ -2299,6 +2316,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2018-02-01T13:16:43+00:00"
         },
         {
@@ -3048,7 +3066,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-xdebug": "^2.6"
+        "ext-xdebug": "^2.6",
+        "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
